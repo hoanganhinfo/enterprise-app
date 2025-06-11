@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  http://www.springframework.org/schema/aop
+  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context-2.5.xsd
+  http://www.springframework.org/schema/tx
+  http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<context:component-scan base-package="tms.web.service" />
+
+	<bean		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<bean		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	<!-- Task tracking -->
+	<bean name="/saveTask" 								class="tms.web.service.TaskWS" />
+	<bean name="/deleteTask" 							class="tms.web.service.TaskWS" />
+	<bean name="/getPersonalTask" 						class="tms.web.service.TaskWS" />
+	<bean name="/getAssignedTask" 						class="tms.web.service.TaskWS" />
+	<bean name="/getStatusList" 						class="tms.web.service.TaskWS" />
+	<bean name="/getPriorityList" 						class="tms.web.service.TaskWS" />
+	<bean name="/exportTaskToExcel" 					class="tms.web.service.TaskWS" />
+	<bean name="/upload" 								class="tms.web.service.TaskWS" />
+	<bean name="/getAttachmentFiles" 					class="tms.web.service.TaskWS" />
+	<bean name="/downloadPhoto"							class="tms.web.service.TaskWS" />
+	<bean name="/deletePhoto" 							class="tms.web.service.TaskWS" />
+
+	<!-- Asset category -->
+	<bean name="/saveAssetCategory" 					class="tms.web.service.AssetCategoryWS" />
+	<bean name="/deleteAssetCategory" 					class="tms.web.service.AssetCategoryWS" />
+	<bean name="/getAssetCategoryList" 					class="tms.web.service.AssetCategoryWS" />
+	<!-- Asset location -->
+	<bean name="/saveAssetLocation" 					class="tms.web.service.AssetLocationWS" />
+	<bean name="/deleteAssetLocation" 					class="tms.web.service.AssetLocationWS" />
+	<bean name="/getAssetLocationList" 					class="tms.web.service.AssetLocationWS" />
+	<!-- Asset -->
+	<bean name="/saveAsset" 							class="tms.web.service.AssetWS" />
+	<bean name="/deleteAsset" 							class="tms.web.service.AssetWS" />
+	<bean name="/getAsset" 					class="tms.web.service.AssetWS" />
+	<bean name="/getAssetTree" 							class="tms.web.service.AssetWS" />
+	<bean name="/updateAssetRequestType" 				class="tms.web.service.AssetWS" />
+
+	<!-- Asset history -->
+	<bean name="/saveAssetHistoryList" 					class="tms.web.service.AssetHistoryWS" />
+	<bean name="/deleteAssetHistoryList" 				class="tms.web.service.AssetHistoryWS" />
+	<bean name="/getAssetHistoryList" 					class="tms.web.service.AssetHistoryWS" />
+	<!-- Asset permission -->
+	<bean name="/saveAssetPermission" 					class="tms.web.service.AssetPermissionWS" />
+	<bean name="/deleteAssetPermission" 				class="tms.web.service.AssetPermissionWS" />
+	<bean name="/getAssetPermissionList"				class="tms.web.service.AssetPermissionWS" />
+
+	<!-- Project list -->
+	<bean name="/saveProject" 							class="tms.web.service.PmProjectWS" />
+	<bean name="/deleteProject" 						class="tms.web.service.PmProjectWS" />
+	<bean name="/getProjectList"						class="tms.web.service.PmProjectWS" />
+	<bean name="/setStatusForProject" 					class="tms.web.service.PmProjectWS" />
+
+	<!-- Project task -->
+	<bean name="/saveProjectTask" 						class="tms.web.service.PmProjectTaskWS" />
+	<bean name="/deleteProjectTask" 					class="tms.web.service.PmProjectTaskWS" />
+	<bean name="/getTaskTree" 							class="tms.web.service.PmProjectTaskWS" />
+
+	<!-- Project type -->
+	<bean name="/getProjectTypeList" 					class="tms.web.service.PmProjectTypeWS" />
+	<bean name="/saveProjectType" 						class="tms.web.service.PmProjectTypeWS" />
+	<bean name="/deleteProjectType" 					class="tms.web.service.PmProjectTypeWS" />
+	<bean name="/getActiveProjectTypeList" 				class="tms.web.service.PmProjectTypeWS" />
+
+	<!-- Project calendar -->
+	<bean name="/getCalendarByProject" 					class="tms.web.service.PmCalendarWS" />
+	<bean name="/saveCalendar" 							class="tms.web.service.PmCalendarWS" />
+	<bean name="/deleteCalendar" 						class="tms.web.service.PmCalendarWS" />
+
+	<!-- Injection Mold -->
+	<bean name="/saveInjMold" 							class="tms.web.service.InjMoldWS" />
+	<bean name="/deleteInjMold" 						class="tms.web.service.InjMoldWS" />
+	<bean name="/getMoldList" 							class="tms.web.service.InjMoldWS" />
+	<bean name="/getMoldListByColor" 					class="tms.web.service.InjMoldWS" />
+	<bean name="/getMoldListByColorAndMold" 			class="tms.web.service.InjMoldWS" />
+
+	<!-- InjRegrindRateWS -->
+	<bean name="/saveInjRegrindRate"   					class="tms.web.service.InjRegrindRateWS" />
+	<bean name="/deleteInjRegrindRate" 					class="tms.web.service.InjRegrindRateWS" />
+	<bean name="/getMoldRegrindRate"   					class="tms.web.service.InjRegrindRateWS" />
+	<bean name="/getMoldRegrindRateByProductCode"   	class="tms.web.service.InjRegrindRateWS" />
+
+
+	<!-- InjRegrindOrderWS -->
+	<bean name="/saveRegrindOrder"   					class="tms.web.service.InjRegrindOrderWS" />
+	<bean name="/saveRegrindOrderWithRemainingMaterial" class="tms.web.service.InjRegrindOrderWS" />
+	<bean name="/getRegrindOrderList"   				class="tms.web.service.InjRegrindOrderWS" />
+	<bean name="/updateRegrindOrderWithStatus"   		class="tms.web.service.InjRegrindOrderWS" />
+
+
+	<!-- InjMixedMaterialWS -->
+	<bean name="/getMixedMaterialByCode"   				class="tms.web.service.InjMixedMaterialWS" />
+	<bean name="/getMixedMaterialByRateAndVirginCode"   class="tms.web.service.InjMixedMaterialWS" />
+	<bean name="/getMixedMaterialWithMaxMMCode"   		class="tms.web.service.InjMixedMaterialWS" />
+	<bean name="/saveMixedMaterial"   					class="tms.web.service.InjMixedMaterialWS" />
+	<bean name="/getMixedMaterialList"   				class="tms.web.service.InjMixedMaterialWS" />
+	<bean name="/deleteMixedMaterialByIdOrder"   		class="tms.web.service.InjMixedMaterialWS" />
+
+	<!-- Assy Product Type -->
+	<bean name="/getAssyProductTypeList" 				class="tms.web.service.AssyProductTypeWS" />
+	<bean name="/saveAssyProductType" 					class="tms.web.service.AssyProductTypeWS" />
+	<bean name="/deleteAssyProductType" 				class="tms.web.service.AssyProductTypeWS" />
+	<!-- Assy Product Station -->
+	<bean name="/getAssyProductStationList" 			class="tms.web.service.AssyProductStationWS" />
+	<bean name="/saveAssyProductStation" 				class="tms.web.service.AssyProductStationWS" />
+	<bean name="/deleteAssyProductStation" 	    		class="tms.web.service.AssyProductStationWS" />
+	<!-- Assy Product Station Prerequisite-->
+	<bean name="/getAssyProductStationPrerequisiteList" 			class="tms.web.service.AssyProductStationPrerequisiteWS" />
+	<bean name="/verifyAssyProductStationPrerequisiteList" 			class="tms.web.service.AssyProductStationPrerequisiteWS" />
+	<bean name="/saveAssyProductStationPrerequisite" 				class="tms.web.service.AssyProductStationPrerequisiteWS" />
+	<bean name="/addAOSmithPrerequisite" 							class="tms.web.service.AssyProductStationPrerequisiteWS" />
+	<bean name="/addAOSmithPDVPrerequisite"							class="tms.web.service.AssyProductStationPrerequisiteWS" />
+
+	<bean name="/deleteAssyProductStationPrerequisite" 	    		class="tms.web.service.AssyProductStationPrerequisiteWS" />
+
+
+	<!-- Assy Parameter -->
+	<bean name="/getAssyParameterList" 					class="tms.web.service.AssyParameterWS" />
+	<bean name="/saveAssyParameter" 					class="tms.web.service.AssyParameterWS" />
+	<bean name="/deleteAssyParameter" 					class="tms.web.service.AssyParameterWS" />
+
+	<!-- Assy Product Model -->
+	<bean name="/getAssyProductModelList" 				class="tms.web.service.AssyProductModelWS" />
+	<bean name="/getActiveAssyProductModels" 			class="tms.web.service.AssyProductModelWS" />
+	<bean name="/saveAssyProductModel" 					class="tms.web.service.AssyProductModelWS" />
+	<bean name="/deleteAssyProductModel" 				class="tms.web.service.AssyProductModelWS" />
+	<bean name="/getAssyProductModelListByAPT" 			class="tms.web.service.AssyProductModelWS" />
+
+	<!-- Assy Product Defect -->
+	<bean name="/getAssyProductDefectList" 				class="tms.web.service.AssyProductDefectWS" />
+	<bean name="/deleteAssyProductDefect" 				class="tms.web.service.AssyProductDefectWS" />
+	<bean name="/saveAssyProductDefect" 				class="tms.web.service.AssyProductDefectWS" />
+	<bean name="/getAssyProductDefectActiveList" 		class="tms.web.service.AssyProductDefectWS" />
+
+
+ 	<!-- Assy Product Test -->
+	<bean name="/saveProductTest" 	    				class="tms.web.service.AssyProductTestWS" />
+	<bean name="/saveAssyProductTestBarcode"			class="tms.web.service.AssyProductTestWS" />
+	<bean name="/deleteProductTest" 					class="tms.web.service.AssyProductTestWS" />
+	<bean name="/deleteProductTestAllData" 				class="tms.web.service.AssyProductTestWS" />
+	<bean name="/getTenProductTestList" 				class="tms.web.service.AssyProductTestWS" />
+	<bean name="/getPMDPrefix" 							class="tms.web.service.AssyProductTestWS" />
+	<bean name="/getProductTestLogs" 					class="tms.web.service.AssyProductTestWS" />
+	<bean name="/getProductTestBarcodeLogs"				class="tms.web.service.AssyProductTestWS" />
+	<bean name="/getNumberOfTest" 						class="tms.web.service.AssyProductTestWS" />
+	<bean name="/exportAOSmith" 						class="tms.web.service.AssyProductTestWS" />
+	<bean name="/exportAOSmithPDV" 						class="tms.web.service.AssyProductTestWS" />
+
+
+	<!-- Welllington Test -->
+
+	<bean name="/saveWellingtonTest" 	        		class="tms.web.service.WellingtonTestWS" />
+	<bean name="/updateWellingtonTest" 	        		class="tms.web.service.WellingtonTestWS" />
+	<bean name="/getNextPacking" 	        			class="tms.web.service.WellingtonTestWS" />
+	<bean name="/uploadWellingtonTest" 	        		class="tms.web.service.WellingtonTestWS" />
+	<bean name="/getWellingtonTestLogs" 	    		class="tms.web.service.WellingtonTestWS" />
+	<bean name="/getBatchNo" 	    					class="tms.web.service.WellingtonTestWS" />
+	<bean name="/updateBatchNo" 	    				class="tms.web.service.WellingtonTestWS" />
+	<bean name="/getWellingtonShipmentList" 	    	class="tms.web.service.WellingtonTestWS" />
+	<!-- Welllington Motor -->
+	<bean name="/saveWellingtonMotor" 	    			class="tms.web.service.WellingtonMotorWS" />
+	<bean name="/deleteWellingtonMotor" 	    		class="tms.web.service.WellingtonMotorWS" />
+	<bean name="/getWellingtonMotorList" 	    		class="tms.web.service.WellingtonMotorWS" />
+	<bean name="/getActiveWellingtonMotorList" 	    	class="tms.web.service.WellingtonMotorWS" />
+
+
+ 	<bean name="/getQcInspectorTableList"				class="tms.web.service.QCInspectorWS" />
+	<bean name="/saveQcInspectorTable"					class="tms.web.service.QCInspectorWS" />
+	<bean name="/deleteQcInspectorTable"    			class="tms.web.service.QCInspectorWS" />
+	<bean name="/getQcInspectorLineList"				class="tms.web.service.QCInspectorWS" />
+	<bean name="/saveQcInspectorLine"					class="tms.web.service.QCInspectorWS" />
+	<bean name="/deleteQcInspectorLine"	    			class="tms.web.service.QCInspectorWS" />
+
+	<!-- Qc inspection Defect -->
+	<bean name="/getQcInspectionDefectList" 			class="tms.web.service.QCInspectionDefectWS" />
+	<bean name="/deleteQcInspectionDefect" 				class="tms.web.service.QCInspectionDefectWS" />
+	<bean name="/saveQCInspectionDefect" 				class="tms.web.service.QCInspectionDefectWS" />
+	<bean name="/getQcInspectionDefectActiveList" 		class="tms.web.service.QCInspectionDefectWS" />
+
+	<!-- Courier shipment-->
+	<bean name="/getCourierShipmentList" 				class="tms.web.service.CourierShipmentWS" />
+	<bean name="/deleteCourierShipment" 				class="tms.web.service.CourierShipmentWS" />
+	<bean name="/saveCourierShipment" 					class="tms.web.service.CourierShipmentWS" />
+	<bean name="/exportCourierShipment" 				class="tms.web.service.CourierShipmentWS" />
+	<bean name="/updateTrackingNo"		 				class="tms.web.service.CourierShipmentWS" />
+
+
+	<!-- Courier sample-->
+	<bean name="/getCourierSampleList" 					class="tms.web.service.CourierSampleWS" />
+	<bean name="/deleteCourierSample" 					class="tms.web.service.CourierSampleWS" />
+	<bean name="/saveCourierSample" 					class="tms.web.service.CourierSampleWS" />
+
+
+	<bean id="multipartResolver"						class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="40960000" />
+	</bean>
+</beans>

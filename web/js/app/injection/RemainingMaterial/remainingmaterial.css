@@ -1,0 +1,54 @@
+#cbScreen {
+	height: 30px !important;
+}
+.portlet-title {
+	font-size: 20px;
+	text-align: center;
+}
+.x-type-fieldset-action{
+	border: 1px solid #B5B8C8;
+	padding: 15px 5px 5px 5px;
+}
+#frmAction {
+	padding-top: 5px;
+}
+.x-type-frm-action {
+	padding-top: 10px;
+}
+.x-type-frm {
+	padding-left: 5px !important;
+	padding-top: 5px !important;
+}
+
+
+.x-btn-default-large-passes-edited {
+	height: 100px;
+	background-color: #92D050;
+	background-image: none !important;
+	
+}
+.x-type-cell-button-passes {
+    vertical-align: top;
+    padding-top: 5px;
+    padding-right: 10px;
+    float: right;
+}
+
+
+.label-font-size-And-Color
+{
+    font-size:30px;
+    font-weight:bold ;
+    color:Red;
+}
+.x-btn-default-large-fail-edited {
+	
+	background-color: #006600;
+	background-image: none !important;
+	
+}
+.x-btn-default-large-fail-edited .x-btn-center .x-btn-inner {
+	color: red;
+    font-size: 15px;
+    text-align: center;
+}

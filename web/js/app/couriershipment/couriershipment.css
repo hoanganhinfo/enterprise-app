@@ -1,0 +1,30 @@
+#cbScreen {
+	height: 30px !important;
+}
+.portlet-title {
+	font-size: 20px;
+	text-align: center;
+}
+.x-type-fieldset-action{
+	border: 1px solid #B5B8C8;
+	padding: 15px 5px 5px 5px;
+}
+#frmAction {
+	padding-top: 5px;
+}
+.x-type-frm-action {
+	padding-top: 10px;
+}
+.x-type-frm {
+	padding-left: 5px !important;
+	padding-top: 5px !important;
+}
+.text-address{
+	height: 80px !important;
+}
+#txtAddress-inputEl {
+	height: 80px !important;
+}
+.tool-email .x-tool-email{
+	background-image:url(../../../images/app/icon-email16.png) !important; 
+}

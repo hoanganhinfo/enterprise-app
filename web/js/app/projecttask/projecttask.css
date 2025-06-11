@@ -1,0 +1,16 @@
+.portlet-title {
+	text-align: center;
+}
+.x-type-fieldset-action{
+	border: 1px solid #B5B8C8;
+	padding: 15px 5px 5px 5px;
+}
+#frmAction {
+	padding-top: 5px;
+}
+.x-type-frm-action {
+	padding-top: 10px;
+}
+.x-type-frm {
+}
+

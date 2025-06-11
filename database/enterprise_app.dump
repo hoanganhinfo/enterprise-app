@@ -1,0 +1,212 @@
+-- MySQL dump 10.13  Distrib 5.1.59, for Win32 (ia32)
+--
+-- Host: localhost    Database: enterprise_app
+-- ------------------------------------------------------
+-- Server version	5.5.24-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `asset`
+--
+
+DROP TABLE IF EXISTS `asset`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asset` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `serial` varchar(20) DEFAULT NULL,
+  `manufacturer` varchar(50) DEFAULT NULL,
+  `distributor` varchar(50) DEFAULT NULL,
+  `store` varchar(50) DEFAULT NULL,
+  `store_address` text,
+  `description` text,
+  `purchased_date` date DEFAULT NULL,
+  `expired_date` date DEFAULT NULL,
+  `warranty` varchar(20) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `category_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asset`
+--
+
+LOCK TABLES `asset` WRITE;
+/*!40000 ALTER TABLE `asset` DISABLE KEYS */;
+INSERT INTO `asset` VALUES (1,'HP Laser M1132 MFG',' ','hp','FPT','FPT Binh duong','','','2013-09-01','2013-09-30','1 year',6,2),(2,'Asus K46CB',' ','Asus','FPT','Back khoa computer','Binh Duong','','2013-08-21','2015-09-21','2 years',6,1),(3,'a','','a','','','','','2013-09-23','2013-09-23','',5,NULL),(4,'a','','','','','','','2013-09-23','2013-09-23','',5,NULL),(8,'g','','','','','','','2013-09-23','2013-09-23','',8,2),(9,'Dell 1516','','Dell','FPT','Le Phung','HCM','','2013-10-02','2013-10-02','1 years',5,1),(10,'Dell','','','','','','','2013-10-02','2013-10-02','',5,1);
+/*!40000 ALTER TABLE `asset` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `asset_category`
+--
+
+DROP TABLE IF EXISTS `asset_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asset_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(50) DEFAULT NULL,
+  `department_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asset_category`
+--
+
+LOCK TABLES `asset_category` WRITE;
+/*!40000 ALTER TABLE `asset_category` DISABLE KEYS */;
+INSERT INTO `asset_category` VALUES (1,'Laptop',25702),(2,'Printer',25702),(3,'sdfgd',12422),(4,'Desktop',25702);
+/*!40000 ALTER TABLE `asset_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `asset_history`
+--
+
+DROP TABLE IF EXISTS `asset_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asset_history` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `asset_id` bigint(20) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `trans_type` tinyint(4) DEFAULT NULL,
+  `trans_date` date DEFAULT NULL,
+  `employee` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `memo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asset_history`
+--
+
+LOCK TABLES `asset_history` WRITE;
+/*!40000 ALTER TABLE `asset_history` DISABLE KEYS */;
+INSERT INTO `asset_history` VALUES (1,0,NULL,'2013-09-26',NULL,0,'2013-09-26',NULL,NULL,NULL),(2,0,NULL,'2013-09-26','2013-09-27',0,'2013-09-26','dfdg',NULL,NULL),(3,0,NULL,'2013-09-27','2013-09-27',0,'2013-09-26',NULL,NULL,NULL),(6,8,NULL,'2013-09-26','2013-09-26',6,'2013-09-26','dgfgf',NULL,'fgjghj'),(12,8,'','2013-09-30',NULL,8,'2013-09-30','',NULL,''),(26,9,'','2013-10-02',NULL,6,'2013-10-02','Ngoc Anh',NULL,''),(27,2,'','2013-08-21',NULL,6,'2013-10-02','mattg\'',NULL,''),(28,1,'','2013-09-23',NULL,6,'2013-10-02','QC',NULL,'');
+/*!40000 ALTER TABLE `asset_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hr_recruitment_order`
+--
+
+DROP TABLE IF EXISTS `hr_recruitment_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hr_recruitment_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `request_date` date DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `approved_by` int(11) DEFAULT NULL,
+  `approved_date` date DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `priority` tinyint(4) NOT NULL,
+  `recruitment_position` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hr_recruitment_order`
+--
+
+LOCK TABLES `hr_recruitment_order` WRITE;
+/*!40000 ALTER TABLE `hr_recruitment_order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hr_recruitment_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hr_recruitment_phase`
+--
+
+DROP TABLE IF EXISTS `hr_recruitment_phase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hr_recruitment_phase` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `phase_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phase_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `posted_date` date DEFAULT NULL,
+  `stop_date` date DEFAULT NULL,
+  `posted_method` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `posted_content` text COLLATE utf8_unicode_ci,
+  `status` mediumint(9) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hr_recruitment_phase`
+--
+
+LOCK TABLES `hr_recruitment_phase` WRITE;
+/*!40000 ALTER TABLE `hr_recruitment_phase` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hr_recruitment_phase` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `task`
+--
+
+DROP TABLE IF EXISTS `task`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `taskname` text COLLATE utf8_unicode_ci,
+  `description` text COLLATE utf8_unicode_ci,
+  `requester_id` int(11) DEFAULT NULL,
+  `department` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `priority` tinyint(4) DEFAULT NULL,
+  `request_date` date DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `targetdate` date DEFAULT NULL,
+  `plan_completed_date` date DEFAULT NULL,
+  `actual_completed_date` date DEFAULT NULL,
+  `email` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task`
+--
+
+LOCK TABLES `task` WRITE;
+/*!40000 ALTER TABLE `task` DISABLE KEYS */;
+INSERT INTO `task` VALUES (1,'qwe','<font color=\"0000FF\">qweqw</font>',10196,'25702',1,'2013-06-28',2,'2013-06-28','2013-06-28','2013-06-28','itsupervisor@ewi.vn'),(2,'aaaa','aaaa',10196,'25702',2,'2013-06-28',4,'2013-06-28','2013-06-28','2013-06-28','itsupervisor@ewi.vn'),(3,'ddfg','dfg',10196,'12416',1,'2013-06-28',4,'2013-06-28','2013-06-28','2013-06-28','itsupervisor@ewi.vn'),(4,'test task','test task​',10196,'12410',2,'2013-07-01',2,'2013-07-01',NULL,NULL,'itsupervisor@ewi.vn'),(5,'test','sfgsdg',10196,'12410',1,'2013-07-01',1,'2013-07-01','2013-07-01','2013-07-01','itsupervisor@ewi.vn'),(6,'123','123',10196,'25708',2,'2013-07-01',2,'2013-07-01',NULL,NULL,'itsupervisor@ewi.vn'),(7,'343','3434',10196,'25702',1,'2013-07-01',2,'2013-07-01',NULL,NULL,'itsupervisor@ewi.vn'),(9,'test','test',10196,'25708',1,'2013-07-08',2,'2013-07-08','2013-07-08',NULL,'itsupervisor@ewi.vn'),(10,'test 1111','sdfsdf',10196,'25708',1,'2013-07-08',2,'2013-07-08',NULL,NULL,'itsupervisor@ewi.vn;dcc@ewi.vn'),(11,'1111','1111',10196,'25702',1,'2013-07-08',2,'2013-07-08',NULL,NULL,'itsupervisor@ewi.vn'),(12,'work order resr','<i><b>​work order resr</b></i><br>work order resr<br>work order resr<br>work order resr<br>',10196,'25702',1,'2013-07-08',2,'2013-07-08',NULL,NULL,'itsupervisor@ewi.vn'),(13,'test','dfhdfh',10196,'25702',1,'2013-07-09',2,'2013-07-09',NULL,NULL,'itsupervisor@ewi.vn'),(14,'sfgdfgd','dfgdfgd',10196,'25702',1,'2013-07-09',2,'2013-07-09',NULL,NULL,'itsupervisor@ewi.vn'),(18,'111','111',10196,'25702',1,'2013-07-09',1,'2013-07-09',NULL,NULL,'itsupervisor@ewi.vn'),(19,'aaaa','aaaa',10196,'25702',1,'2013-07-10',2,'2013-07-10',NULL,'2013-07-10','itsupervisor@ewi.vn'),(20,'234','234',10196,'25702',1,'2013-07-10',2,'2013-07-10',NULL,'2013-07-24','itsupervisor@ewi.vn'),(21,'111','111',10196,'25702',1,'2013-07-10',1,'2013-07-10',NULL,NULL,'itsupervisor@ewi.vn'),(24,'123456','123456',10196,'25702',1,'2013-07-10',2,'2013-07-10',NULL,'2013-07-10','itsupervisor@ewi.vn'),(26,'123456','123456',10196,'25702',1,'2013-07-10',2,'2013-07-10',NULL,'2013-07-24','itsupervisor@ewi.vn'),(27,'aaaaa','aaaaaa',10196,'25702',1,'2013-07-10',2,'2013-07-10',NULL,'2013-07-10','itsupervisor@ewi.vn'),(28,'test','test',12435,'25702',1,'2013-07-24',1,'2013-07-24',NULL,NULL,''),(29,'test','test',10196,'25702',1,'2013-07-24',1,'2013-07-24',NULL,NULL,'');
+/*!40000 ALTER TABLE `task` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-10-09 12:20:41

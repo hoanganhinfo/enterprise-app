@@ -1,0 +1,37 @@
+Ext.define('EAP.Model.CourierShipmentModel', {
+    extend: 'Ext.data.Model',
+    fields: [{name: 'id',type: 'int',useNull: true},
+             {name:'sender'},
+             {name:'department'},
+             {name:'shipmentCompany'},
+             {name:'shipmentContact'},
+             {name:'shipmentAddress'},
+             {name:'paymentby'},
+             {name:'shipmentby'},
+             {name:'document_date', type:'date' , dateFormat:'d/m/Y'},
+         
+            {name:'reference_note'},
+            {name:'service_type'},
+            {name:'package_qty'},
+            {name:'weight',type: 'float'},
+            {name:'length',type: 'float'},
+            {name:'width',type: 'float'},
+            {name:'height',type: 'float'},
+            {name:'shipment_purpose'},
+            {name:'approver'},
+            {name:'PS_no'},
+            {name:'invoiced',type: 'bool'},
+            {name:'posted_PS',type: 'bool'},
+            {name:'customs',type: 'bool'},
+            {name:'createdby'},
+            {name:'trackingNo'},
+            {name:'emailTo'},
+            {name:'creatorEmail'},
+            {name: 'status'}],
+    idProperty: 'id',
+    validations: [{
+        type: 'length',
+        field: 'sender',
+        min: 1
+    }]
+});

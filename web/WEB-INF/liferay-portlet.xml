@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_1_0.dtd">
+<liferay-portlet-app>
+	<portlet>
+		<portlet-name>Task Tracking</portlet-name>
+		<scheduler-entry>
+			<scheduler-description>
+				This scheduler is used to run my own job
+			</scheduler-description>
+			<scheduler-event-listener-class>tms.backend.job.TaskTrackingJob</scheduler-event-listener-class>
+			<trigger>
+				<simple>
+					<simple-trigger-value>10</simple-trigger-value>
+					<time-unit>minute</time-unit>
+				</simple>
+			</trigger>
+		</scheduler-entry>
+		<scheduler-entry>
+			<scheduler-description>
+				This scheduler is used to run my own job
+			</scheduler-description>
+			<scheduler-event-listener-class>tms.backend.job.DocumentOCRJob</scheduler-event-listener-class>
+			<trigger>
+				<simple>
+					<simple-trigger-value>1</simple-trigger-value>
+					<time-unit>minute</time-unit>
+				</simple>
+			</trigger>
+		</scheduler-entry>
+	</portlet>
+	<portlet>
+		<portlet-name>Asset Category</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Asset</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Project list</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Project type</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Project task</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Injection - Material Preparation</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Injection - Mold list</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Injection - Regrind rate</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Injection - Remaining Material</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Injection - Manager Confirmation</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Injection - Mixed Material Stock</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>PMD Test</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Product Type</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Parameter</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Product Model</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Product Defect</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Product Prerequisite</portlet-name>
+	</portlet>
+
+	<portlet>
+		<portlet-name>Assy Product Test Log</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Product Test Barcode Log</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Assy Product Test</portlet-name>
+		<instanceable>true</instanceable>
+	</portlet>
+	<portlet>
+		<portlet-name>Wellington Motor App</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>QC Item Inspection</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Courier Shipment</portlet-name>
+	</portlet>
+	<portlet>
+		<portlet-name>Production Plan</portlet-name>
+	</portlet>
+
+	<role-mapper>
+		<role-name>administrator</role-name>
+		<role-link>Administrator</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>guest</role-name>
+		<role-link>Guest</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>power-user</role-name>
+		<role-link>Power User</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>user</role-name>
+		<role-link>User</role-link>
+	</role-mapper>
+</liferay-portlet-app>

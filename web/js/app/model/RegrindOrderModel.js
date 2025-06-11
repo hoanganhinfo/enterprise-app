@@ -1,0 +1,73 @@
+Ext.define('OldF.Mold.RegrindOrder', {
+    extend: 'Ext.data.Model',
+    fields: [{name: 'id', 							type: 'int',useNull: true},
+             {name:'order_date'},
+             {name:'mold_code'},
+             {name:'part_name'},
+             {name:'color'},
+             {name:'cavity',						type: 'float'},
+             {name:'runner_ratio',					type: 'float'},
+             {name:'weight_regrind_theorically',	type: 'float'},
+             {name:'part_qty_prepared',				type: 'float'},
+             {name:'virgin_material_name'},
+             {name:'virgin_material_weight',		type: 'float'},
+             {name:'regrind_material_name'},
+             {name:'regrind_material_weight',		type: 'float'},
+             {name:'regrind_rate'  ,				type: 'float'},
+             {name:'masterbatch_name'},
+             {name:'masterbatch_weight',			type: 'float'},
+             {name:'masterbatch_rate'  ,			type: 'float'},
+             {name:'mixed_material_code'},
+             {name:'mixed_material_name'},
+             {name:'mixed_material_weight'  ,		type: 'float'},
+             {name:'operator_name'},
+             {name:'virgin_material_code'},
+             {name:'masterbatch_code'},
+             {name:'regrind_material_code'},
+             {name:'part_code'},   
+             {name:'order_status'},
+             {name:'regrind_shortage', 				type: 'int'},
+             {name:'virgin_material_code'},
+             {name:'regrind_material_code'},
+             {name:'part_code'},
+             {name:'userName'}],
+             
+    idProperty: 'id',
+    validations: [{
+        type: 'length',
+        field: 'id',
+        min: 1
+    }]
+});
+
+/*
+
+`id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_date` date DEFAULT NULL,
+  `mold_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `part_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `color` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cavity` double(15,3) DEFAULT NULL,
+  `runner_ratio` double(15,3) DEFAULT NULL,
+  `weight_regrind_theorically` double(15,3) DEFAULT NULL,
+  `part_qty_prepared` double(15,3) DEFAULT NULL,
+  
+  `virgin_material_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `virgin_material_weight` double(15,3) DEFAULT NULL,
+  `regrind_material_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `regrind_material_weight` double(15,3) DEFAULT NULL,
+  `regrind_rate` double(15,3) DEFAULT NULL,
+  
+  `masterbatch_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `masterbatch_weight` double(15,3) DEFAULT NULL,
+  `masterbatch_rate` double(15,3) DEFAULT NULL,
+  `mixed_material_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mixed_material_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mixed_material_weight` double(15,3) DEFAULT NULL,
+  
+  `operator_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `virgin_material_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `masterbatch_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `regrind_material_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `part_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_status` tinyint(4) DEFAULT NULL,*/

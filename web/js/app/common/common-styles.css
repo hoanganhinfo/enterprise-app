@@ -1,0 +1,137 @@
+.aui input[disabled], .aui select[disabled], .aui textarea[disabled], .aui input[readonly], .aui select[readonly], .aui textarea[readonly] {
+	cursor: pointer !important;
+	background-color: white !important;
+}
+.aui ul, .aui ol {
+    padding: 0;
+    margin: 0 0 0px 0px !important;
+}
+.aui #breadcrumbs{
+	margin-bottom: 0px !important;
+}
+.x-panel-body-default {
+	background: none repeat scroll 0 0 transparent !important;
+}
+.portlet-content, .portlet-minimized .portlet-content-container {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.x-docked {
+	z-index: 0 !important;
+}
+.x-form-checkbox {
+	background: url("/aldila-portlet/js/extjs4.1/resources/themes/images/default/form/checkbox.gif") no-repeat scroll 0 0 transparent !important;
+    border: 0 none !important;
+    height: 13px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    vertical-align: -1px !important;
+    width: 13px !important;
+    border-radius: 0px 0px 0px 0px !important;
+}
+.x-form-radio{
+	background: url("/aldila-portlet/js/extjs4.1/resources/themes/images/default/form/radio.gif") no-repeat scroll 0 0 transparent !important;
+    border: 0 none !important;
+    height: 13px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    vertical-align: -1px !important;
+    width: 13px !important;
+    border-radius: 0px 0px 0px 0px !important;
+}
+.x-form-cb-checked .x-form-checkbox, .x-form-cb-checked .x-form-radio {
+	background-position: 0 -13px !important;
+}
+.x-form-cb-checked .x-form-cb-focus {
+	background-position: -13px -13px !important;
+}
+.x-form-cb-focus {
+	background-position: -13px -0px !important;
+}
+
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:150px;
+    width:300px;
+    z-index:20000;
+}
+.x-border-box .x-form-trigger {
+    height: 25px  !important;
+}
+.x-border-box .x-form-text {
+    height: 25px !important;
+}
+.x-form-item-label {
+	font-weight: bold !important;
+}
+#msg-div .msg {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    background: #F6F6F6;
+    border: 2px solid #ccc;
+    margin-top: 2px;
+    padding: 10px 15px;
+    color: #555;
+}
+#msg-div .msg h3 {
+    margin: 0 0 8px;
+    font-weight: bold;
+    font-size: 15px;
+}
+#msg-div .msg p {
+    margin: 0;
+}
+
+.icon-add {
+    margin-right: 25px;
+    background-image:url(../../../images/app/icon-add.png) !important;
+}
+.icon-delete {
+    margin-right: 25px;
+    background-image:url(../../../images/app/icon-delete.png) !important;
+}
+.icon-action{
+	margin-right: 25px;
+    background-image:url(../../../images/app/icon-action.png) !important;
+}
+.icon-attachment-file{
+	margin-right: 25px;
+    background-image:url(../../../images/app/attachment.png) !important;
+}
+.icon-excel{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-excel.png) !important;
+}
+.icon-find{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-find.png) !important;
+}
+.icon-fresh{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-fresh.png) !important;
+}
+.icon-task{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-task.png) !important;
+}
+.icon-calendar{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-calendar.png) !important;
+}
+.icon-view{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-view.png) !important;
+}
+.icon-product{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-product.png) !important;
+}
+.icon-ld{
+	margin-right: 25px;
+	background-image: url(../../../images/app/icon-ld.jpg) !important;
+}

@@ -1,0 +1,144 @@
+#cbScreen {
+	height: 30px !important;
+}
+.portlet-title {
+	font-size: 20px;
+	text-align: center;
+}
+.x-type-fieldset-action{
+	border: 1px solid #B5B8C8;
+	padding: 15px 5px 5px 5px;
+}
+#frmAction {
+	padding-top: 5px;
+}
+.x-type-frm-action {
+	padding-top: 10px;
+}
+.x-type-frm {
+	padding-left: 5px !important;
+	padding-top: 5px !important;
+}
+.x-btn-red button{
+	background-color: red;
+	border-color: red;
+	color: white;
+
+}
+.x-btn-select button{
+	border-width : 5px;
+	border-color: cyan;
+}
+.x-btn-none button{
+	background-color: green;
+	border-color: green;
+	color: white;
+}
+.x-btn-urgent button{
+	background-color: red;
+	border-color: red;
+	color: white;
+}
+.x-btn-safety button{
+	background-color: yellow;
+	border-color: yellow;
+	color: black;
+}
+.x-btn-corrective button{
+	background-color: brown;
+	border-color: brown;
+	color: white;
+}
+.x-btn-preventive button{
+	background-color: pink;
+	border-color: pink;
+	color: black;
+}
+.x-btn-maintenance button{
+	background-color: grey;
+	border-color: grey;
+	color: white;
+}
+.x-btn-improvement button{
+	background-color: purple;
+	border-color: purple;
+	color: white;
+}
+.x-btn-focus{
+	background-color: blue;
+}
+.x-btn-pressed{
+	background-color:green;
+}
+#assets-view .x-panel-body{
+    background: white;
+    font: 11px Arial, Helvetica, sans-serif;
+}
+#assets-view .thumb{
+    background: #dddddd;
+    padding: 3px;
+    padding-bottom: 0;
+}
+
+.x-quirks #assets-view .thumb {
+    padding-bottom: 3px;
+}
+
+#assets-view .thumb img{
+    height: 60px;
+    width: 80px;
+}
+#assets-view .thumb-wrap{
+    float: left;
+    margin: 4px;
+    margin-right: 0;
+    padding: 5px;
+}
+#assets-view .thumb-wrap span {
+
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    width: 86px; /* for ie to ensure that the text is centered */
+}
+
+#assets-view .x-item-over{
+    border:1px solid #dddddd;
+    background: #efefef url(over.gif) repeat-x left top;
+    padding: 4px;
+}
+
+#assets-view .x-item-selected{
+    background: #eff5fb url(selected.gif) no-repeat right bottom;
+    border:1px solid #99bbe8;
+    padding: 4px;
+}
+#assets-view .x-item-selected .thumb{
+    background:transparent;
+}
+
+#assets-view .loading-indicator {
+    font-size:11px;
+    background-image:url('../../resources/themes/images/default/grid/loading.gif');
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left:20px;
+    margin:10px;
+}
+
+.x-view-selector {
+    position:absolute;
+    left:0;
+    top:0;
+    width:0;
+    border:1px dotted;
+    opacity: .5;
+    -moz-opacity: .5;
+    filter:alpha(opacity=50);
+    zoom:1;
+    background-color:#c3daf9;
+    border-color:#3399bb;
+}.ext-strict .ext-ie .x-tree .x-panel-bwrap{
+    position:relative;
+    overflow:hidden;
+}

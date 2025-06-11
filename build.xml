@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="enterprise-app" basedir="." default="build-6.2">
+
+    <property name="build" value="dist" />
+    <property name="web-src" value="web"/>
+    <property name="java-src" value="src"/>
+    <property name="web-inf-classes" value="${build}/WEB-INF/classes" />
+    <property name="web-inf-lib" value="${build}/WEB-INF/lib" />
+	<property name="web-inf" value="${build}/WEB-INF" />
+	<property name="web-images" value="${build}/images" />
+	<property name="web-js" value="${build}/js" />
+
+    <!-- Change the name of the war file you want to create -->
+    <property name="war-name" value="enterprise-app.war" />
+
+
+    <!-- Change the path to the portlet api jar file from your machine  -->
+    <property name="portlet-api-jar-6.1" value="lib/6.1/portlet.jar" />
+	<property name="portal-service-jar-6.1" value="lib/6.1/portal-service.jar" />
+
+	<property name="portlet-api-jar-6.2" value="lib/6.2/portlet.jar" />
+	<property name="portal-service-jar-6.2" value="lib/6.2/portal-service.jar" />
+
+	<property name="portlet-api-jar-7.0" value="lib/7.0/portlet.jar" />
+	<property name="portal-kernel-jar-7.0" value="lib/7.0/portal-kernel" />
+
+
+	<property name="mail.jar" value="lib/mail.jar" />
+	<property name="mailapi.jar" value="lib/mailapi.jar" />
+
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.xls"/>
+  </patternset>
+    <path id="project.classpath-6.1">
+
+        <pathelement location="${portlet-api-jar-6.1}" />
+        <pathelement location="${portal-service-jar-6.1}" />
+    	<pathelement location="${mail.jar}" />
+    	<pathelement location="${mailapi.jar}" />
+    	<fileset dir="web/WEB-INF/lib">
+      		<include name="*.jar"/>
+    	</fileset>
+    </path>
+
+    <path id="project.classpath-6.2">
+
+        <pathelement location="${portlet-api-jar-6.2}" />
+        <pathelement location="${portal-service-jar-6.2}" />
+    	<pathelement location="${mail.jar}" />
+    	<pathelement location="${mailapi.jar}" />
+    	<fileset dir="web/WEB-INF/lib">
+      		<include name="*.jar"/>
+    	</fileset>
+    </path>
+
+ 	<path id="project.classpath-7.0">
+
+        <pathelement location="${portlet-api-jar-7.0}" />
+        <pathelement location="${portal-kernel-jar-7.0}" />
+    	<pathelement location="${mail.jar}" />
+    	<pathelement location="${mailapi.jar}" />
+    	<fileset dir="web/WEB-INF/lib">
+      		<include name="*.jar"/>
+    	</fileset>
+    </path>
+
+    <target name="init">
+        <mkdir dir="${web-inf-classes}" />
+        <mkdir dir="${web-inf-lib}" />
+    </target>
+
+    <target name="build-6.1" depends="clean,init" >
+        <echo message="${ant.project.name}: ${ant.file}" />
+        <javac destdir="${web-inf-classes}">
+            <src path="${java-src}" />
+        	<exclude name="tmp/*" />
+            <classpath refid="project.classpath-6.1" />
+        </javac>
+    	<copy todir="${web-inf-classes}">
+     	 	<fileset dir="${java-src}">
+        		<patternset refid="compiler.resources"/>
+        		<type type="file"/>
+      		</fileset>
+   		</copy>
+        <copy todir="${build}">
+            <fileset dir="${web-src}" />
+        </copy>
+    	<copy todir="${web-inf}">
+    		<fileset dir="lib/6.1/">
+    		        <include name="**/*.xml"/>
+            </fileset>
+    	</copy>
+
+        <jar basedir="${build}" destfile="./deploy/6.1/${war-name}"/>
+    </target>
+
+    <target name="build-6.2" depends="clean,init" >
+        <echo message="${ant.project.name}: ${ant.file}" />
+        <javac destdir="${web-inf-classes}">
+            <src path="${java-src}" />
+        	<exclude name="tmp/*" />
+            <classpath refid="project.classpath-6.2" />
+        </javac>
+	    <copy todir="${web-inf-classes}">
+	      <fileset dir="${java-src}">
+	        <patternset refid="compiler.resources"/>
+	        <type type="file"/>
+	      </fileset>
+	    </copy>
+        <copy todir="${build}">
+            <fileset dir="${web-src}" />
+        </copy>
+    	<copy todir="${web-inf}">
+    		<fileset dir="lib/6.2/">
+    		        <include name="**/*.xml"/>
+            </fileset>
+    	</copy>
+
+        <jar basedir="${build}" destfile="./deploy/6.2/${war-name}"/>
+    </target>
+
+      <target name="build-7.0" depends="clean,init" >
+        <echo message="${ant.project.name}: ${ant.file}" />
+        <javac destdir="${web-inf-classes}">
+            <src path="${java-src}" />
+        	<exclude name="tmp/*" />
+            <classpath refid="project.classpath-7.0" />
+        </javac>
+	    <copy todir="${web-inf-classes}">
+	      <fileset dir="${java-src}">
+	        <patternset refid="compiler.resources"/>
+	        <type type="file"/>
+	      </fileset>
+	    </copy>
+        <copy todir="${build}">
+            <fileset dir="${web-src}" />
+        </copy>
+    	<copy todir="${web-inf}">
+    		<fileset dir="lib/7.0/">
+    		        <include name="**/*.xml"/>
+            </fileset>
+    	</copy>
+
+        <jar basedir="${build}" destfile="./deploy/7.0/${war-name}"/>
+    </target>
+
+    <target name="deploy-6.1" depends="build-6.1">
+    	<copy file="./deploy/6.1/${war-name}" todir="C:/Working/Liferay/liferay6.1.0/deploy"/>
+
+    </target>
+	<target name="deploy-6.2" depends="build-6.2">
+			<copy file="./deploy/6.2/${war-name}" todir="D:/Program/Java/liferay6.2GA6/deploy" />
+	</target>
+    <target name="deploy-7.0" depends="build-7.0">
+    	<copy file="./deploy/6.2/${war-name}" todir="C:/Working/Liferay/liferay7.0.3/deploy"/>
+    </target>
+    <target name="clean">
+    	<delete dir="${build}"/>
+    </target>
+
+     <target name="deploy-all" depends="deploy-6.1,deploy-6.2">
+
+    </target>
+
+</project>
+

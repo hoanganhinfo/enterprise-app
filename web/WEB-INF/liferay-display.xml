@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.1.0//EN" "http://www.liferay.com/dtd/liferay-display_6_1_0.dtd">
+
+<display>
+	<category name="Enterprise App">
+		<portlet id="Task Tracking" />
+
+		<portlet id="Asset Category" />
+		<portlet id="Asset" />
+
+		<portlet id="Project list" />
+		<portlet id="Project type" />
+		<portlet id="Project task" />
+
+		<portlet id="Injection - Material Preparation" />
+		<portlet id="Injection - Mold list" />
+		<portlet id="Injection - Regrind rate" />
+		<portlet id="Injection - Remaining Material" />
+		<portlet id="Injection - Manager Confirmation" />
+		<portlet id="Injection - Mixed Material Stock" />
+
+		<portlet id="PMD Test" />
+		<portlet id="Assy Product Test" />
+		<portlet id="Assy Product Type" />
+		<portlet id="Assy Parameter" />
+		<portlet id="Assy Product Model" />
+		<portlet id="Assy Product Defect" />
+		<portlet id="Assy Product Prerequisite" />
+		<portlet id="Assy Product Test Log" />
+		<portlet id="Assy Product Test Barcode Log" />
+		<portlet id="Wellington Motor App" />
+		<portlet id="QC Item Inspection" />
+		<portlet id="Courier Shipment" />
+		<portlet id="Production Plan" />
+
+	</category>
+</display>

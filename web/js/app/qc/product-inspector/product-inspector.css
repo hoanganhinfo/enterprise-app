@@ -1,0 +1,46 @@
+.x-grid-row-over .x-grid-cell-inner {
+	font-weight: bold;
+	background-color : #EFEFEF !important;
+}
+.x-grid-row-selected .x-grid-cell-inner {
+	font-weight: bold;
+	color: red;
+}
+.rowIncoming .x-grid-cell {
+    color: blue !important;
+}
+.rowInjection .x-grid-cell {
+    color: SaddleBrown !important;
+}
+.rowSMT .x-grid-cell {
+    color: magenta !important;
+}
+.rowOutcoming .x-grid-cell {
+    color: #088A08 !important;
+}
+.x-item-combo {
+	width: 500px !important;
+}
+.x-defect-combo {
+	width: 100px !important;
+}
+.x-selected-row .x-grid-cell{
+	background-color :#DFE8F6  !important;
+	font-weight: bold;
+}
+.x-type-tip {
+	background-image: none !important;
+}
+.x-tab-top-disabled {
+	background-image: none !important;
+	cursor : default !important;
+	border-width: 0px important;
+	height: 17px !important;
+	box-shadow: none  !important;
+	background-color: #D0DEF0 !important;
+	border-style: none !important;
+}
+.x-tab-disabled button {
+	color: black  !important;
+	cursor : default !important;
+}

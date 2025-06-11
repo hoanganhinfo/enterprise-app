@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  http://www.springframework.org/schema/aop
+  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context-2.5.xsd
+  http://www.springframework.org/schema/tx
+  http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- <bean id="dataSource" class="com.liferay.portal.kernel.util.InfrastructureUtil" factory-method="getDataSource" />
+	-->
+	<!-- Data Source Bean: defines the connection to a database -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>${database.url}
+			</value>
+		</property>
+      	<property name="username">
+			<value>${database.username}</value>
+		</property>
+		<property name="password">
+			<value>${database.password}</value>
+		</property>
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" destroy-method="destroy">
+        <property name="annotatedClasses">
+            <list>
+                <value>tms.backend.domain.Task</value>
+                <value>tms.backend.domain.AssetCategory</value>
+                <value>tms.backend.domain.Asset</value>
+                <value>tms.backend.domain.AssetHistory</value>
+                <value>tms.backend.domain.AssetLocation</value>
+                <value>tms.backend.domain.AssetPermission</value>
+                <value>tms.backend.domain.PmProjectType</value>
+                <value>tms.backend.domain.PmResource</value>
+    			<value>tms.backend.domain.PmProject</value>
+    			<value>tms.backend.domain.PmProjectTask</value>
+    			<value>tms.backend.domain.InjMixedMaterialJournal</value>
+    			<value>tms.backend.domain.InjMold</value>
+    			<value>tms.backend.domain.InjRegrindorder</value>
+    			<value>tms.backend.domain.InjRegrindRate</value>
+    			<value>tms.backend.domain.AssyParameter</value>
+    			<value>tms.backend.domain.AssyProductType</value>
+    			<value>tms.backend.domain.AssyProductModel</value>
+    			<value>tms.backend.domain.AssyProductStation</value>
+    			<value>tms.backend.domain.AssyProductStationPrerequisite</value>
+    			<value>tms.backend.domain.AssyProductDefect</value>
+    			<value>tms.backend.domain.AssyProductTest</value>
+    			<value>tms.backend.domain.AssyProductTestBarcode</value>
+    			<value>tms.backend.domain.WellingtonMotor</value>
+    			<value>tms.backend.domain.WellingtonTest</value>
+    			<value>tms.backend.domain.QcInspectionTable</value>
+    			<value>tms.backend.domain.QcInspectionLine</value>
+    			<value>tms.backend.domain.QcInspectionDefect</value>
+    			<value>tms.backend.domain.CourierShipment</value>
+    			<value>tms.backend.domain.CourierSample</value>
+
+
+
+            </list>
+        </property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="connection.autocommit">true</prop>
+				<prop key="hibernate.c3p0.min_size">5</prop>
+				<prop key="hibernate.c3p0.max_size">100</prop>
+				<prop key="hibernate.c3p0.timeout">300</prop>
+				<prop key="hibernate.c3p0.max_statements">50</prop>
+				<prop key="hibernate.c3p0.idle_test_period">3000</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+
+			</props>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+    </bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- ANNOTATION DRIVEN TRANSACTIONS -->
+	<context:annotation-config />
+ 	<context:component-scan base-package="tms"/>
+    <tx:annotation-driven  transaction-manager="transactionManager"/>
+</beans>
