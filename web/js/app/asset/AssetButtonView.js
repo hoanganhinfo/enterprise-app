@@ -63,7 +63,7 @@ Ext.Loader.setConfig({
 							text: txt,
 							margin:  '8 8 0 8',
 							ui:'plain',
-							baseCls: 'x-btn-asset',
+							//baseCls: 'x-btn-asset',
 							cls: clsFormat,
 						    width : 100,
 						    height: 100,
