@@ -1,3 +1,6 @@
+Ext.Loader.setPath("Ext.ux.DateTimePicker", "/enterprise-app/js/extjs4.1/examples/ux/DateTimeField/DateTimePicker.js");
+Ext.Loader.setPath("Ext.ux.DateTimeField", "/enterprise-app/js/extjs4.1/examples/ux/DateTimeField/DateTimeField.js");
+
 Ext.define('EAP.Window.Task',{
 	extend: 'Ext.window.Window',
     title: 'New task',
@@ -245,11 +248,15 @@ Ext.define('EAP.Window.Task',{
         	name: 'targetDate',
         	labelAlign: 'right',
         	id: 'targetDate',
-        	format: 'd/m/Y',
+        	//format: 'd/m/Y',
+        	 format : 'd/m/Y h:i A',
+             value : new Date(),
+            // minValue: '01/12/2015 04:00 PM',
+          //   maxValue: '31/12/2016 05:30 PM',
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
         	value: this.task==null?new Date():this.task.get('targetdate'),
-        	xtype: 'datefield'
+        	xtype: 'datetimefield'
 
         },{
         	fieldLabel: 'Confirmed date',

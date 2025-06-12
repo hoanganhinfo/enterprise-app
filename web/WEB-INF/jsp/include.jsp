@@ -52,6 +52,8 @@ var department = "aaa";
 	<script type="text/javascript" src="/enterprise-app/js/extjs4.1/examples/ux/DataView/Draggable.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/extjs4.1/examples/ux/DataView/DragSelector.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/extjs4.1/examples/ux/DataView/LabelEditor.js"></script>
+	<script type="text/javascript" src="/enterprise-app/js/extjs4.1/examples/ux/DateTimeField/DateTimePicker.js"></script>
+	<script type="text/javascript" src="/enterprise-app/js/extjs4.1/examples/ux/DateTimeField/DateTimeField.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/app/common/ewi-config.js"></script>
 
 
