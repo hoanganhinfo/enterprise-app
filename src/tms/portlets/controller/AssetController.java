@@ -39,6 +39,7 @@ import tms.utils.TaskRequestType;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Organization;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.permission.PermissionChecker;
@@ -76,6 +77,7 @@ public class AssetController implements Controller, InitializingBean {
 				.getOriginalServletRequest(com.liferay.portal.util.PortalUtil
 						.getHttpServletRequest(request));
 		System.out.println("Loading asset master");
+		JSONArray aUserRole = new JSONArray();
 		JSONArray aDepartment = new JSONArray();
 		JSONArray assetDepartment = new JSONArray();
 		JSONArray aEmployee = new JSONArray();
@@ -87,15 +89,25 @@ public class AssetController implements Controller, InitializingBean {
 		JSONArray aMyOrgs = new JSONArray();
 		JSONObject jsonOrg;
 		jsonOrg = new JSONObject();
+		JSONObject jsonUser;
 		ThemeDisplay themeDisplay = (ThemeDisplay) request
 				.getAttribute(WebKeys.THEME_DISPLAY);
 
 		User user = themeDisplay.getUser();
+		for(Role role : user.getRoles()){
+			jsonOrg = new JSONObject();
+			jsonOrg.put("value", role.getRoleId());
+			jsonOrg.put("name", role.getName());
+			aUserRole.add(jsonOrg);
+		}
+
 		List<User> userList = UserLocalServiceUtil.getUsers(0, UserLocalServiceUtil.getUsersCount());
-		JSONObject jsonUser;
+
 		JSONArray aUser = new JSONArray();
 		for(User _user : userList){
+
 			if (_user.isActive()){
+				System.out.println("UserId:" + _user.getScreenName());
 				jsonUser= new JSONObject();
 				jsonUser.put("userId", _user.getUserId());
 				jsonUser.put("userEmail", _user.getEmailAddress());
@@ -128,7 +140,7 @@ public class AssetController implements Controller, InitializingBean {
 		}
 
 
-		System.out.println(organizations.size());
+		System.out.println("aMyOrgs: " + aMyOrgs);
 
 
 
@@ -236,6 +248,7 @@ public class AssetController implements Controller, InitializingBean {
 
 		map.put("companyId", user.getCompanyId());
 		map.put("userId", user.getUserId());
+		map.put("userRoles", aUserRole);
 		map.put("userName", user.getScreenName());
 		map.put("isAdmin", true);
 		map.put("userEmail", user.getEmailAddress().toLowerCase());

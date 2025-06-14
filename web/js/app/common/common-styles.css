@@ -16,7 +16,12 @@
 	padding-top: 0px !important;
 	padding-bottom: 0px !important;
 }
-
+.x-datetimefield-title {
+	color: white !important;
+}
+.x-datetimefield-bg {
+	background-color: grey !important;
+}
 .x-docked {
 	z-index: 0 !important;
 }
@@ -61,13 +66,16 @@
     z-index:20000;
 }
 .x-border-box .x-form-trigger {
-    height: 25px  !important;
+
 }
 .x-border-box .x-form-text {
-    height: 25px !important;
+
 }
 .x-form-item-label {
 	font-weight: bold !important;
+}
+.x-textareafield {
+	height: 50px !important;
 }
 #msg-div .msg {
     border-radius: 8px;

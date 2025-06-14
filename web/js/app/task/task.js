@@ -69,10 +69,11 @@ var userStore = new Ext.data.JsonStore({
     fields: [
         {type: 'int', name: 'userId'},
         {type: 'string', name: 'userName'},
-        {type: 'string', name: 'userEmail'}
+        {type: 'string', name: 'userEmail'},
+        {type: 'string', name: 'department'}
     ]
 });
-userStore.loadData(Ext.decode(employeeJsonData));
+userStore.loadData(Ext.decode(usersJsonData));
 userStore.sort('userEmail', 'ASC');
 var departmentStore = new Ext.data.JsonStore({
     fields: [
@@ -231,11 +232,12 @@ Ext.onReady(function() {
 	Ext.tip.QuickTipManager.init();
 	// turn on validation errors beside the field globally
 	Ext.form.Labelable.msgTarget = 'side';
+	/*
 	var assignedTaskList = Ext.create('EAP.Grid.AssignedTaskGrid', {
 		store: assignedTaskDS,
 	    id: 'assignedTaskList',
 	    stateful: true,
-	    height: 400,
+	//    height: '100%',
 	    columnLines: true,
 	    stateId: 'stateGrid',
 	    departmentStore: departmentStore,
@@ -250,7 +252,7 @@ Ext.onReady(function() {
 		taskRequestTypeStore: taskRequestTypeStore
 
 	});
-	/*
+
 	var personalTaskGrid = Ext.create('EAP.Grid.PersonalTaskGrid', {
 			//width: 350,
 	        store: personalTaskDS,
@@ -274,6 +276,7 @@ Ext.onReady(function() {
 	var filterForm = Ext.create('EAP.Form.TaskFilterForm', {
 	    id: 'taskFilterForm',
 	    stateful: true,
+	    region: 'north',
 	    title: 'Filter by',
 	    titleCollapse: true,
 
@@ -286,18 +289,46 @@ Ext.onReady(function() {
 		assignedTaskDS: assignedTaskDS,
 		personalTaskDS: personalTaskDS,
 		assetCategoryStore: assetCategoryStore,
-		renderTo: 'taskFilterPanel'
+		//renderTo: 'taskFilterPanel'
 
 	});
-	var frm = Ext.create('Ext.tab.Panel', {
+	/*
+	var taskTab = Ext.create('Ext.tab.Panel', {
     	id: 'mainFrm',
         //bodyPadding: 5,  // Don't want content to crunch against the borders
-        height: '95%',
-        width: '100%',
-        layout: {
-            type: 'border'
-        },
+        height: '100%',
+       // width: '100%',
+	    region: 'center',
         items: [assignedTaskList],
+        dockedItems : [],
+
+    });*/
+	var taskTab = Ext.create('Ext.tab.Panel', {
+		id : 'bottomTab',
+		//width : '300',
+		//height: '300',
+		region: 'center',
+		items : [{
+        	xtype: 'assignedTaskGrid',
+            store: assignedTaskDS,
+    	    id: 'assignedTaskList',
+    	    title:'Task',
+    	    stateful: true,
+    	   // height: 300,
+    	    columnLines: true,
+    	    stateId: 'stateGrid',
+		    departmentStore: departmentStore,
+			priorityStore : priorityStore,
+			statusStore : statusStore,
+			scopeStore: scopeStore,
+			userStore: userStore,
+			assetCategoryStore: assetCategoryStore,
+			assetCategoryStore: assetCategoryStore,
+			assetStore:assetStore,
+			taskActionStore: taskActionStore,
+			locationStore: locationStore,
+			taskRequestTypeStore: taskRequestTypeStore
+        }],
         dockedItems : [ {
 			xtype : 'toolbar',
 			items : [ {
@@ -449,8 +480,18 @@ Ext.onReady(function() {
 					dlg.show();
 				}
 			}  ]
-		} ],
-        renderTo: 'taskPanel'
+		} ]
+
+	});
+	Ext.create('Ext.panel.Panel', {
+    	id: 'mainFrm',
+    	height: 700,
+        width: '100%',
+        layout: {
+            type: 'border'
+        },
+    	items: [filterForm, taskTab],
+        renderTo: 'mainPanel'
 
     });
 });

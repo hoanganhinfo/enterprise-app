@@ -12,13 +12,15 @@
 	<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <%
 	JSONArray objDepartment  = (JSONArray)mapParam.get("orgJsonData");
-	JSONArray objEmployee  = (JSONArray)mapParam.get("employeeJsonData");
+	JSONArray objUsersInGroup  = (JSONArray)mapParam.get("usersInGroup");
 	JSONArray objScope  = (JSONArray)mapParam.get("scopeJsonData");
 	JSONArray objPriority  = (JSONArray)mapParam.get("priorityJsonData");
 	JSONArray objStatus  = (JSONArray)mapParam.get("statusJsonData");
 	JSONArray objTaskAction  = (JSONArray)mapParam.get("taskActionJsonData");
 	JSONArray objLocation  = (JSONArray)mapParam.get("locationDataJsonData");
 	JSONArray objTaskRequestType  = (JSONArray)mapParam.get("taskRequestTypeJsonData");
+	JSONArray objUsersJsonData  = (JSONArray)mapParam.get("usersJsonData");
+
 	//JSONArray objAssetCategory  = (JSONArray)mapParam.get("assetCategoryJsonData");
 	//JSONArray objAsset  = (JSONArray)mapParam.get("assetJsonData");
 	String userName = (String)mapParam.get("userName");
@@ -33,8 +35,8 @@
 %>
 <script  language="javascript">
 var departmentJsonData = '<%=objDepartment.toString()%>';
-var employeeJsonData = '<%=objEmployee.toString()%>';
-
+var employeeJsonData = '<%=objUsersInGroup.toString()%>';
+var usersJsonData = '<%=objUsersJsonData.toString()%>';
 var scopeJsonData = '<%=objScope.toString()%>';
 var priorityJsonData = '<%=objPriority.toString()%>';
 var statusJsonData = '<%=objStatus.toString()%>';
@@ -46,8 +48,7 @@ var myOrgs = '<%=myOrgs%>';
 var repositoryId = '<%=repositoryId%>';
 var taskImageFolderId = '<%=taskImageFolderId%>';
 var fileUrl = '<%=fileUrl%>';
-console.log(taskRequestTypeJsonData);
-console.log(locationData);
+console.log(usersJsonData);
 </script>
 	<!-- Style sheet -->
 	<link rel="stylesheet" type="text/css" href="/enterprise-app/js/extjs4.1/examples/ux/css/CheckHeader.css" />
@@ -75,7 +76,6 @@ console.log(locationData);
 </head>
 
 <body>
-	<div id="taskFilterPanel"></div>
-    <div id="taskPanel"></div>
+    <div id="mainPanel"></div>
 </body>
 </html>

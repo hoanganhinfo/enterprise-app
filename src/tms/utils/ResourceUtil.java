@@ -28,6 +28,7 @@ public class ResourceUtil {
 	public static String OFFICE_GROUP = "Office";
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	public static SimpleDateFormat dateFormat_YYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
+	public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 	//2013-01-30T00:00:00
 	public static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	public static void loadMessageProperties(){

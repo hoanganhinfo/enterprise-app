@@ -54,6 +54,7 @@ import tms.utils.Email;
 import tms.utils.PriorityType;
 import tms.utils.ScopeType;
 import tms.utils.StatusType;
+import tms.utils.TaskActionType;
 import tms.utils.TaskRequestType;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -114,8 +115,11 @@ public class TaskWS extends MultiActionController {
 		String targetDate = request.getParameter("targetDate");
 		String planDate = request.getParameter("planDate");
 		String actualDate = request.getParameter("actualDate");
+		String confirmedDate = request.getParameter("confirmedDate");
 		String email = request.getParameter("email");// cc
 		String assetId = request.getParameter("assetId");
+		String resolution = request.getParameter("resolution");
+
 		//String assetCategoryId = request.getParameter("assetCategoryId");
 
 
@@ -139,6 +143,7 @@ public class TaskWS extends MultiActionController {
 		task.setScope(ScopeType.COMPANY.getValue());
 		task.setTaskname(taskname);
 		task.setDescription(desc);
+		task.setResolution(resolution);
 		task.setPriority(Byte.valueOf(priorityId));
 		task.setStatus(Byte.valueOf(statusId));
 		if (StringUtils.isNotBlank(taskActionId)){
@@ -152,19 +157,27 @@ public class TaskWS extends MultiActionController {
 			task.setRequestType(Byte.valueOf(requestTypeId));
 		}
 		if (StringUtils.isNotBlank(requestDate)){
-			task.setRequestDate(CalendarUtil.stringToDate(requestDate));
+			task.setRequestDate(CalendarUtil.stringToDateTime(requestDate));
 		}
 		if (StringUtils.isNotBlank(targetDate)){
-			task.setTargetdate(CalendarUtil.stringToDate(targetDate));
+			task.setTargetdate(CalendarUtil.stringToDateTime(targetDate));
+		}
+		if (StringUtils.isNotBlank(confirmedDate)){
+			task.setActualCompletedDate(CalendarUtil.stringToDateTime(confirmedDate));
 		}
 		if (StringUtils.isNotBlank(planDate)){
-			task.setPlanCompletedDate(CalendarUtil.stringToDate(planDate));
+			task.setPlanCompletedDate(CalendarUtil.stringToDateTime(planDate));
 		}
 		if (StringUtils.isNotBlank(actualDate)){
-			task.setActualCompletedDate(CalendarUtil.stringToDate(actualDate));
+			task.setActualCompletedDate(CalendarUtil.stringToDateTime(actualDate));
 		}
 		if (StringUtils.isNotBlank(assetId)){
 			task.setAssetId(Long.valueOf(assetId));
+		}
+
+		task.setEmail(email);
+		taskService.saveOrUpdate(task);
+		if (StringUtils.isNotBlank(assetId)){
 			Criterion cAsset = Restrictions.eq("assetId", Long.valueOf(assetId));
 			Criterion cStatus = Restrictions.or(Restrictions.eq("status", StatusType.OPEN.getValue()),
 					Restrictions.or(Restrictions.eq("status", StatusType.PROCESSING.getValue()),
@@ -182,10 +195,6 @@ public class TaskWS extends MultiActionController {
 			}
 			assetService.update(asset);
 		}
-
-		task.setEmail(email);
-		taskService.saveOrUpdate(task);
-
 		// email
 		if (StringUtils.isNotBlank(email)) {
 			email = email.replaceAll(";", ",");
@@ -294,6 +303,24 @@ public class TaskWS extends MultiActionController {
 		String taskImageFolderId = request.getParameter("taskImageFolderId");
 		Task task = taskService.findById(Long.valueOf(taskId));
 		taskService.delete(task);
+		if (task.getAssetId() != null){
+			Criterion cAsset = Restrictions.eq("assetId", task.getAssetId());
+			Criterion cStatus = Restrictions.or(Restrictions.eq("status", StatusType.OPEN.getValue()),
+					Restrictions.or(Restrictions.eq("status", StatusType.PROCESSING.getValue()),
+							Restrictions.or(Restrictions.eq("status", StatusType.ON_SCHEDULE.getValue()),
+									Restrictions.eq("status", StatusType.COMPLETED.getValue()))));
+			List<Task> pendingTasks = taskService.getByCriteria("requestType", "asc",cAsset,cStatus);
+			Asset asset =  assetService.findById(task.getAssetId());
+			if (pendingTasks.size() > 0){
+				Task pendingTask = pendingTasks.get(0);
+				asset.setRequestType(pendingTask.getRequestType());
+
+			}else{
+				asset.setRequestType(TaskRequestType.BLANK.getValue());
+
+			}
+			assetService.update(asset);
+		}
 		List<FileEntry> fileList;
 		// delete attachment files of task
 		/*try {
@@ -339,7 +366,7 @@ public class TaskWS extends MultiActionController {
 			HttpServletResponse response) throws ServletException, IOException, ParseException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 		JSONObject obj = new JSONObject();
 		JSONArray array = new JSONArray();
 		String myOrgs = request.getParameter("myOrgs");
@@ -423,6 +450,7 @@ public class TaskWS extends MultiActionController {
 					jsonTask.put("id", task.getId());
 					jsonTask.put("taskname", task.getTaskname());
 					jsonTask.put("description", task.getDescription());
+					jsonTask.put("resolution", task.getResolution());
 					jsonTask.put("requesterId", task.getRequesterId());
 					try{
 						User user = UserLocalServiceUtil.getUserById(task
@@ -460,13 +488,20 @@ public class TaskWS extends MultiActionController {
 					} else {
 						jsonTask.put("actualdate", "");
 					}
+					if (task.getConfirmDate() != null) {
+						jsonTask.put("confirmedDate",
+								fmt.format(task.getConfirmDate()));
+					} else {
+						jsonTask.put("actualdate", "");
+					}
 					if (task.getStatus() != null){
 						jsonTask.put("status", StatusType
 								.forValue(task.getStatus()).getLabel());
 						jsonTask.put("statusId", task.getStatus());
 					}
+
 					if (task.getTaskAction() != null){
-						jsonTask.put("taskAction", StatusType
+						jsonTask.put("taskAction", TaskActionType
 							.forValue(task.getTaskAction()).getLabel());
 						jsonTask.put("taskActionId", task.getTaskAction());
 					}
@@ -501,6 +536,8 @@ public class TaskWS extends MultiActionController {
 					}
 					if (task.getRequestType() != null){
 						jsonTask.put("requestType", TaskRequestType.forValue(task.getRequestType()).getLabel());
+						jsonTask.put("requestTypeId", task.getRequestType());
+
 					}
 
 					System.out.println("get attachment file");

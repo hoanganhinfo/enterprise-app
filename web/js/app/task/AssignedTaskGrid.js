@@ -4,7 +4,7 @@ Ext.Loader.setConfig({
 Ext.Loader.setPath('Ext.ux', '/enterprise-app/js/extjs4.1/examples/ux');
 Ext.define('EAP.Grid.AssignedTaskGrid', {
 	extend : 'Ext.grid.Panel',
-	 alias: 'widget.AssignedTaskGrid',
+	 alias: 'widget.assignedTaskGrid',
 	title : 'Department task',
 	viewConfig : {
 		emptyText : 'There are no tasks to display',
@@ -41,8 +41,9 @@ Ext.define('EAP.Grid.AssignedTaskGrid', {
 			            {header : 'Asset name',sortable : true,dataIndex : 'assetName',width:150},
 			            {header : 'Assignee',sortable : true,dataIndex : 'assigneeEmail',width:100},
 			            {header : 'Request date',sortable : true,dataIndex : 'requestdate',width:90},
-			            {header : 'Target date',sortable : true,dataIndex : 'targetdate',width:90},
-			            {header : 'Confirm date',sortable : true,dataIndex : 'plandate',width:90},
+			            {header : 'Expected date',sortable : true,dataIndex : 'targetdate',width:90},
+			            {header : 'Confirm date',sortable : true,dataIndex : 'confirmedDate',width:90},
+			            {header : 'Schedule date',sortable : true,dataIndex : 'plandate',width:90},
 			            {header : 'Actual date',sortable : true,dataIndex : 'actualdate',width:90},
 			            {header : 'Requested by',sortable : true,dataIndex : 'requester',width:90},
 			            {header : 'Request type',sortable : true,dataIndex : 'requestType',width:90},

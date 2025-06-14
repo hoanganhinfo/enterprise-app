@@ -77,7 +77,7 @@ Ext.Loader.setConfig({
 				    				activeAssetId = obj.id;
 				            		assetHistoryDS.load({params:{assetId:  obj.id}});
 				            		obj.addCls('x-btn-select');
-				            		assignedTaskDS.load({params:{assetId:  obj.id}})
+				            		assignedTaskDS.load({params:{assetId:  obj.id}});
 				            	},
 				            	scope:this
 				    		}

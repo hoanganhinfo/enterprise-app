@@ -44,6 +44,7 @@ Ext.define('EAP.Window.Task',{
 	        fieldLabel: 'To department',
 	    	displayField : 'orgName',
 	    	width: 300,
+	    	height: 30,
 	    	displayField : 'orgName',
 	    	valueField : 'orgId',
 	    	editable: false,
@@ -55,7 +56,13 @@ Ext.define('EAP.Window.Task',{
 	    	margin: '2 2 2 2',
 	    	scope: this,
             listeners:{
-     			 select: function(combo, records,opt) {}
+     			 select: function(combo, records,opt) {
+     				 Ext.getCmp('cbAssignee').getStore().clearFilter(true);
+     				 var val = combo.getRawValue();
+     				 console.log('val: '+ val);
+     				Ext.getCmp('cbAssignee').setRawValue('');
+     				Ext.getCmp('cbAssignee').getStore().filter("department", val);
+     			 }
             }
 	    },{
 //	    	 xtype:'textfield',
@@ -69,14 +76,16 @@ Ext.define('EAP.Window.Task',{
 	    	 xtype:'combo',
 		     id : 'cbAssignee',
 		    	inputId: 'cboAssignee',
+		    	height: 30,
 		    	labelAlign: 'right',
 		        fieldLabel: 'Assignee',
-		    	displayField : 'userEmail',
+		    	displayField : 'userName',
 		    	valueField : 'userId',
 		    	store: this.userStore,
 		    	colspan: 1,
 		    //	value: -1,
-		    	editable: false,
+		    	editable: true,
+		    	allowBlank: true,
 		    	width: 300,
 		    	msgTarget: 'side',
 		    	triggerAction : 'all',
@@ -88,6 +97,7 @@ Ext.define('EAP.Window.Task',{
 	    	inputId: 'cboLocation',
 	    	labelAlign: 'right',
 	        fieldLabel: 'Location',
+	        height: 30,
 	    	displayField : 'locationCode',
 	    	valueField : 'locationCode',
 	    	store: this.locationStore,
@@ -119,6 +129,7 @@ Ext.define('EAP.Window.Task',{
 	        fieldLabel: 'Asset category',
 	    	displayField : 'categoryname',
 	    	valueField : 'id',
+	    	height: 30,
 	    	store: this.assetCategoryStore,
 	    	colspan: 1,
 	    	editable: true,
@@ -147,6 +158,7 @@ Ext.define('EAP.Window.Task',{
 	    	inputId: 'cboAsset',
 	    	labelAlign: 'right',
 	        fieldLabel: 'Asset',
+	        height: 30,
 	    	displayField : 'assetCode',
 	    	itemTpl : '{assetCode} | {assetName}',
 	    	valueField : 'id',
@@ -163,12 +175,13 @@ Ext.define('EAP.Window.Task',{
 			xtype:'combo',
 			id : 'cbRequestType',
 			inputId: 'cboRequestType',
+			height: 30,
 			store : this.taskRequestTypeStore,
 			labelAlign: 'right',
 			fieldLabel: 'Request type',
 			displayField : 'name',
 			valueField : 'value',
-			value: 5,
+			value:  this.task==null?5:this.task.get('requestTypeId'),
 			editable: false,
 			scope: this,
 			allowBlank: false,
@@ -183,18 +196,21 @@ Ext.define('EAP.Window.Task',{
 	         labelAlign: 'right',
 	         value: this.task==null?'':this.task.get('taskname'),
 	         id: 'taskname',
+	         height:30,
 	         width: 560,
 	         colspan: 2,
 	         margin: '2 2 2 2'
 	    },{
-	    	xtype:'htmleditor',
+	    	xtype:'textareafield',
 	        fieldLabel: 'Description',
 	        labelAlign: 'right',
 	        id: 'desc',
 	        value:  this.task==null?'':this.task.get('description'),
 	        anchor:'95%',
 	        width: 560,
-	        height:200,
+	        growMax: 100,
+	        growMin: 100,
+	        height:100,
 	        colspan: 2,
 	        margin: '2 2 2 2'
 	    },{
@@ -202,15 +218,16 @@ Ext.define('EAP.Window.Task',{
 		    id : 'cbPriority',
 		    inputId: 'cboPriority',
 		    store : this.priorityStore,
+		    value:  this.task==null?2:this.task.get('priorityId'),
 		    labelAlign: 'right',
 		    fieldLabel: 'Priority',
+		    height: 30,
 		    displayField : 'name',
 		    valueField : 'value',
-		    value: 2,
 		    allowBlank: false,
 		    msgTarget: 'side',
 		    // hideTrigger:true,
-		    triggerAction : 'all',
+		    //triggerAction : 'all',
 		    queryMode : 'local',
 		    columnWidth:0.5,
 		    margin: '2 2 2 2'
@@ -221,41 +238,45 @@ Ext.define('EAP.Window.Task',{
 			store : this.statusStore,
 			labelAlign: 'right',
 			fieldLabel: 'Status',
+			height: 30,
 			displayField : 'name',
 			valueField : 'value',
-			value: 1,
+			value:  this.task==null?5:this.task.get('statusId'),
 			scope: this,
 			allowBlank: false,
 			msgTarget: 'side',
-	    	triggerAction : 'all',
+	    	//triggerAction : 'all',
 	    	queryMode : 'local',
 	    	columnWidth:0.5,
 	    	margin: '2 2 2 2'
 		},{
         	fieldLabel: 'Request date',
+        	height: 30,
         	name: 'requestDate',
         	labelAlign: 'right',
         	id: 'requestDate',
-        	format: 'd/m/Y',
+        	format : 'd/m/Y h:i A',
+            value : new Date(),
+        	hideTrigger : true,
         	editable: false,
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
         	value: this.task==null?new Date():this.task.get('requestdate'),
-        	xtype: 'datefield'
+        	xtype: 'datetimefield'
 
         },{
-        	fieldLabel: 'Target date',
+        	fieldLabel: 'Expected date',
         	name: 'targetDate',
         	labelAlign: 'right',
         	id: 'targetDate',
         	//format: 'd/m/Y',
         	 format : 'd/m/Y h:i A',
              value : new Date(),
-            // minValue: '01/12/2015 04:00 PM',
+             minValue: this.task==null?new Date():this.task.get('requestdate'),
           //   maxValue: '31/12/2016 05:30 PM',
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
-        	value: this.task==null?new Date():this.task.get('targetdate'),
+        	value: this.task==null?new Date():Ext.Date.parse(this.task.get('targetdate'), "d/m/Y h:i A"),
         	xtype: 'datetimefield'
 
         },{
@@ -263,44 +284,54 @@ Ext.define('EAP.Window.Task',{
         	name: 'confirmedDate',
         	labelAlign: 'right',
         	id: 'confirmedDate',
-        	format: 'd/m/Y',
+        	format : 'd/m/Y h:i A',
+        	hideTrigger : true,
+        	editable: false,
+        	minValue: this.task==null?new Date():this.task.get('requestdate'),
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
-	    	value: this.task==null?null:this.task.get('confirmedDate'),
-        	xtype: 'datefield'
+	    	value: this.task==null?new Date():Ext.Date.parse(this.task.get('confirmedDate'), "d/m/Y h:i A"),
+        	xtype: 'datetimefield'
 
         },{
         	fieldLabel: 'Schedule completed',
+
         	name: 'planDate',
         	labelAlign: 'right',
         	id: 'planDate',
-        	format: 'd/m/Y',
+        	format : 'd/m/Y h:i A',
+        	 minValue: this.task==null?new Date():this.task.get('requestdate'),
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
-	    	value: this.task==null?null:this.task.get('plandate'),
-        	xtype: 'datefield'
+	    	value: this.task==null?new Date():Ext.Date.parse(this.task.get('plandate'), "d/m/Y h:i A"),
+        	xtype: 'datetimefield'
 
         },{
         	fieldLabel: 'Actual completed',
         	name: 'actualDate',
         	labelAlign: 'right',
+        	hideTrigger : true,
+        	height:30,
+        	editable: false,
         	id: 'actualDate',
-        	format: 'd/m/Y',
+        	format : 'd/m/Y h:i A',
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
 	    	value: this.task==null?null:this.task.get('actualdate'),
-        	xtype: 'datefield'
+        	xtype: 'datetimefield'
 
         },{
 			xtype:'combo',
 			id : 'cbTaskAction',
 			inputId: 'cboTaskAction',
+			height: 30,
 			store : this.taskActionStore,
 			labelAlign: 'right',
 			fieldLabel: 'Action',
 			displayField : 'name',
 			valueField : 'value',
 			scope: this,
+			value:  this.task==null?5:this.task.get('taskActionId'),
 			//allowBlank: false,
 			msgTarget: 'side',
 	    	triggerAction : 'all',
@@ -308,6 +339,20 @@ Ext.define('EAP.Window.Task',{
 	    	columnWidth:0.5,
 	    	margin: '2 2 2 2'
 		},{
+	    	xtype:'textareafield',
+	        fieldLabel: 'Resolution',
+	        labelAlign: 'right',
+	        id: 'resolution',
+	        cls:'x-textareafield',
+	        value:  this.task==null?'':this.task.get('resolution'),
+	        anchor:'95%',
+	        width: 560,
+	        growMax: 100,
+	        growMin: 100,
+	        height:100,
+	        colspan: 2,
+	        margin: '2 2 2 2'
+	    },{
 	    	 xtype:'textfield',
 	         id: 'email',
 	         width: 560,
@@ -321,6 +366,7 @@ Ext.define('EAP.Window.Task',{
 	      // alert(this.departmentJsonData);
 
 		this.callParent(arguments);
+		//Ext.getCmp("requestDate").triggerEl.hide()
 		Ext.getCmp("cbStatus").on('select',function(combo,record,opts){
 			if (this.task.get('requesterId') != userId){
 				if (record[0].data.value == 3){
@@ -365,7 +411,7 @@ Ext.define('EAP.Window.Task',{
 			Ext.getCmp("cbAssignee").setValue(this.task.get('assigneeId'));
 			Ext.getCmp("cbAsset").setValue(this.task.get('assetCode'));
 			//Ext.getCmp("cbAssetCategory").setValue(this.task.get('assetCategoryId'));
-				Ext.getCmp("cbAsset").getStore().load({
+			Ext.getCmp("cbAsset").getStore().load({
 					  params: {categoryId: Ext.getCmp("cbAssetCategory").getValue()},
 					  scope: this,
 					 callback: function(records, operation, success) {
@@ -402,7 +448,7 @@ Ext.define('EAP.Window.Task',{
 					Ext.getCmp("cbAsset").setReadOnly(true);
 					Ext.getCmp("cbPriority").setReadOnly(true);
 					Ext.getCmp("cbStatus").setReadOnly(false);
-					Ext.getCmp("requestDate").setReadOnly(true);
+					Ext.getCmp("requestDate").setReadOnly(false);
 					Ext.getCmp("targetDate").setReadOnly(true);
 					Ext.getCmp("planDate").setReadOnly(true);
 					Ext.getCmp("actualDate").setReadOnly(true);
@@ -418,7 +464,7 @@ Ext.define('EAP.Window.Task',{
 				Ext.getCmp("cbAssetCategory").setReadOnly(true);
 				Ext.getCmp("cbAsset").setReadOnly(true);
 				Ext.getCmp("cbStatus").setReadOnly(false);
-				Ext.getCmp("requestDate").setReadOnly(true);
+				Ext.getCmp("requestDate").setReadOnly(false);
 				Ext.getCmp("targetDate").setReadOnly(true);
 				Ext.getCmp("planDate").setReadOnly(false);
 				Ext.getCmp("actualDate").setReadOnly(true);
@@ -428,7 +474,9 @@ Ext.define('EAP.Window.Task',{
 
 
 		}
-
+		 Ext.getCmp("actualDate").setReadOnly(true);
+		 Ext.getCmp("confirmedDate").setReadOnly(true);
+		 Ext.getCmp("requestDate").setReadOnly(true);
 	},
 	onRender: function(){
 		this.callParent(arguments);
@@ -479,6 +527,7 @@ Ext.define('EAP.Window.Task',{
 				assetCategoryId : Ext.getCmp("cbAssetCategory").getValue(),
 				taskActionId: Ext.getCmp("cbTaskAction").getValue(),
 				requestTypeId :  Ext.getCmp("cbRequestType").getValue(),
+				resolution : Ext.getCmp("resolution").getValue(),
 			},
 			scriptTag : true,
 			success : function(response) {

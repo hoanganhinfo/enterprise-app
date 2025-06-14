@@ -33,6 +33,9 @@ Ext.define('EAP.Grid.AssetTreeGrid', {
             clicksToEdit: 2,
             listeners: {
                 beforeedit: function(e, editor){
+                	if (assetManager == null){
+                		return false;
+                	}
 
                 	/*
                 	if (this.historyStore.getCount() > 0){
@@ -192,7 +195,7 @@ Ext.define('EAP.Grid.AssetTreeGrid', {
 
     },
     onSelectChange: function(selModel, selections){
-    	Ext.getCmp('removeAsset').setDisabled(selections.length === 0);
+    	Ext.getCmp('removeAsset').setDisabled(assetManager != null && selections.length === 0);
     	//Ext.getCmp('moveAsset').setDisabled(selections.length === 0);
        // this.up('#delete').setDisabled(selections.length === 0);
         //this.up('#moveAsset').setDisabled(selections.length === 0);
@@ -200,7 +203,8 @@ Ext.define('EAP.Grid.AssetTreeGrid', {
         	if (selections[0].get('id') != null &&	activeAssetId != selections[0].get('id')){
         		//this.changedAssetId = selections[0].get('id');
         		activeAssetId = selections[0].get('id');
-	        	this.historyStore.load({params:{assetId:  selections[0].get('id')}});
+	        	this.historyStore.load({params:{assetId:  activeAssetId}});
+	        	assignedTaskDS.load({params:{assetId:  activeAssetId}});
 
         	}
     	}

@@ -68,43 +68,45 @@ Ext.define('EAP.view.AssetView',{
                 			{text: 'Grid',scope: this,handler: this.onViewGrid}]
 
                },{
-                    	   text: 'Action',id : 'menuView',columnWidth: 250,
-                          	menu:[{text: 'Create asset',id: 'newAsset',scope: this,scale : 'medium',handler: this.onAddAssetClick},
-                          		{text: 'Create part',id: 'newPart',scope: this,scale : 'medium',handler: this.onAddPartClick, hidden: true},
-                          		{text: 'Delete asset', id: 'removeAsset', disabled: true, itemId: 'delete', scale : 'medium', scope: this, handler: this.onDeleteClick}]
-                      },{
-                       	text: 'Setup',
-                       	id : 'menuSetup',
-                       	columnWidth: 250,
-                       	menu:[{
-                               // iconCls: 'icon-delete',
-                               text: 'Asset category',
-                               id: 'assetCategory',
-                               //disabled: true,
-                               //itemId: 'delete',
-                               scale : 'medium',
-                               scope: this,
-                               handler: this.onOpenCategory
-                           },{
-                              // iconCls: 'icon-delete',
-                               text: 'Asset location',
-                               id: 'assetLocation',
-                               //disabled: true,
-                               //itemId: 'delete',
-                               scale : 'medium',
-                               scope: this,
-                               handler: this.onOpenLocation
-                           },{
-                               // iconCls: 'icon-delete',
-                               text: 'Permission',
-                               id: 'assetPermission',
-                               disabled: isAdmin == "true"?false:true,
-                               //itemId: 'delete',
-                       		iconCls:'icon-find',
-                              scope: this,
-                               handler: this.onOpenPermissionWin
-                           }]
-                       }]
+            	   text: 'Action',id : 'menuAction',columnWidth: 250,
+                  	menu:[{text: 'Create task',id: 'newTask',scope: this,scale : 'medium',handler: this.onCreateTask},
+                  		{text: 'Create asset',id: 'newAsset',scope: this,scale : 'medium',handler: this.onAddAssetClick, hidden: assetManager == null ? true : false},
+                  		{text: 'Create part',id: 'newPart',scope: this,scale : 'medium',handler: this.onAddPartClick, hidden: true},
+                  		{text: 'Delete asset', id: 'removeAsset', disabled: true, hidden: assetManager == null ? true : false, itemId: 'delete', scale : 'medium', scope: this, handler: this.onDeleteClick}]
+              },{
+               	text: 'Setup',
+               	id : 'menuSetup',
+               	columnWidth: 250,
+               	hidden: assetSystem == null ? true : false,
+               	menu:[{
+                       // iconCls: 'icon-delete',
+                       text: 'Asset category',
+                       id: 'assetCategory',
+                       //disabled: true,
+                       //itemId: 'delete',
+                       scale : 'medium',
+                       scope: this,
+                       handler: this.onOpenCategory
+                   },{
+                      // iconCls: 'icon-delete',
+                       text: 'Asset location',
+                       id: 'assetLocation',
+                       //disabled: true,
+                       //itemId: 'delete',
+                       scale : 'medium',
+                       scope: this,
+                       handler: this.onOpenLocation
+                   },{
+                       // iconCls: 'icon-delete',
+                       text: 'Permission',
+                       id: 'assetPermission',
+                       disabled: isAdmin == "true"?false:true,
+                       //itemId: 'delete',
+               		iconCls:'icon-find',
+                      scope: this,
+                       handler: this.onOpenPermissionWin
+                   }]
+               }]
 
             },'->',this.assetOwnerList,this.departmentList,categoryList,
             {
@@ -225,10 +227,17 @@ Ext.define('EAP.view.AssetView',{
 		var locationCode = Ext.getCmp('cboLocation').getValue();
 		var requestType = Ext.getCmp('cboRequestType').getValue();
 		var name = Ext.getCmp('assetSearch').getValue();
-		assetGrid.getStore().load({params:{ownerName: ownerName, departmentName:departmentName, categoryId:  categoryId,
-			locationCode: locationCode, requestType: requestType, name: name}});
+		console.log(ownerName);
+		console.log(departmentName);
+		console.log(departmentName);
+		console.log(locationCode);
+		console.log(requestType);
+		console.log(name);
+
 
 		assetButtonView.renderAsset(ownerName, departmentName, categoryId, locationCode, requestType, name);
+		assetGrid.getStore().load({params:{ownerName: ownerName, departmentName:departmentName, categoryId:  categoryId,
+			locationCode: locationCode, requestType: requestType, name: name}});
 
 	},
 	onViewList: function(){

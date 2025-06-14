@@ -41,6 +41,7 @@ public class Task implements java.io.Serializable {
 	private Long assetCategoryId;
 	private Byte taskAction;
 	private Byte requestType;
+	private String resolution;
 	public Task() {
 	}
 
@@ -293,6 +294,21 @@ public class Task implements java.io.Serializable {
 	 */
 	public void setConfirmDate(Date confirmDate) {
 		this.confirmDate = confirmDate;
+	}
+
+	/**
+	 * @return the resolution
+	 */
+	@Column(name = "resolution", columnDefinition="TEXT")
+	public String getResolution() {
+		return resolution;
+	}
+
+	/**
+	 * @param resolution the resolution to set
+	 */
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
 	}
 
 }

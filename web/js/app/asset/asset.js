@@ -39,7 +39,8 @@ var UPLOAD_PHOTO_URL='/enterprise-app/service/upload';
 var PHOTO_LIST_URL = '/enterprise-app/service/getAttachmentFiles';
 var DOWNLOAD_PHOTO_URL = '/enterprise-app/service/downloadPhoto';
 var DELETE_PHOTO_URL = '/enterprise-app/service/deletePhoto';
-
+var ROLE_ASSET_SYSTEM = 'ASSET SYSTEM';
+var ROLE_ASSET_MANAGER = 'ASSET MANAGER';
 var assetGrid;
 var newAssetNode;
 var selectedCategoryId;
@@ -259,8 +260,9 @@ var assetTreeStore = Ext.create('Ext.data.TreeStore', {
 
      	},
      	remove: function( store, node, isMove, eOpts ){
+
      		var parentNode = node.parentNode;
-        	if (parentNode.isRoot() == false && parentNode.hasChildNodes() == false){
+        	if (parentNode != null && parentNode.isRoot() == false && parentNode.hasChildNodes() == false){
         		parentNode.set('leaf',true);
         	}
 
@@ -355,7 +357,7 @@ var assignedTaskDS = new Ext.data.JsonStore({
 	model:'EAP.Model.Task',
 	proxy: {
         type: 'ajax',
-        extraParams :{userId:userId,myOrgs: '',repositoryId:repositoryId,taskImageFolderId:taskImageFolderId,statusId: 1,assetId:activeAssetId},
+        extraParams :{assetId:activeAssetId},
         url: GET_ASSIGNED_TASK_LIST,
         reader: {
             type: 'json',
@@ -451,9 +453,16 @@ var taskRequestTypeStore = new Ext.data.JsonStore({
         {type: 'string', name: 'name'}
     ]
 });
+var userRoleStore = new Ext.data.JsonStore({
+    fields: [
+        {type: 'int', name: 'value'},
+        {type: 'string', name: 'name'}
+    ]
+});
 taskActionStore.loadData(Ext.decode(taskActionJsonData));
 taskActionAllStore.loadData(Ext.decode(taskActionJsonData));
 taskRequestTypeStore.loadData(Ext.decode(taskRequestTypeJsonData));
+userRoleStore.loadData(Ext.decode(userRolesData));
 departmentStore.removeAt(0);
 statusStore.removeAt(0);
 priorityStore.removeAt(0);
@@ -492,6 +501,10 @@ var assetStore = new Ext.data.JsonStore({
 
     }
 });
+var assetSystem = userRoleStore.findRecord('name', ROLE_ASSET_SYSTEM);
+var assetManager = userRoleStore.findRecord('name', ROLE_ASSET_MANAGER);
+console.log('assetSystem: ' + assetSystem);
+console.log('assetManager: ' + assetManager);
 Ext.onReady(function() {
 	assetButtonView = Ext.create('EAP.view.AssetButtonView', {
 	    //store: assetDS,
@@ -522,7 +535,7 @@ Ext.onReady(function() {
 
 
         },{
-        	xtype: 'AssignedTaskGrid',
+        	xtype: 'assignedTaskGrid',
             store: assignedTaskDS,
     	    id: 'assignedTaskList',
     	    title:'Task',

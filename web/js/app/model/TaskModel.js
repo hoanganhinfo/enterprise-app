@@ -11,6 +11,8 @@ Ext.define('EAP.Model.Task', {
 	          {name: 'plandate'},
 	          {name: 'actualdate'},
 	          {name: 'status',type: 'string'},
+	          {name: 'statusId',type: 'int'},
+	          {name: 'priorityId', type: 'int'},
 	          {name: 'priority',type: 'string'},
 	          {name: 'department',type: 'string'},
 	          {name: 'assigneeId',type: 'int'},
@@ -25,11 +27,19 @@ Ext.define('EAP.Model.Task', {
 	          {name: 'assetCode',type: 'string'},
 	          {name: 'assetName',type: 'string'},
 	          {name: 'requestType',type: 'string'},
-	          {name: 'hasAttachmentFile',type: 'boolean'}],
+	          {name: 'requestTypeId',type: 'int'},
+	          {name: 'hasAttachmentFile',type: 'boolean'},
+	          {name: 'resolution',type: 'string'},
+	          {name: 'taskActionId', type:'int'},
+	          {name: 'taskAction', type:'string'}],
     idProperty: 'id',
     validations: [{
         type: 'length',
         field: 'code',
+        min: 1
+    },{
+        type: 'length',
+        field: 'taskname',
         min: 1
     }]
 });

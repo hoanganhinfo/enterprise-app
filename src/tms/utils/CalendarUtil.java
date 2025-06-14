@@ -53,7 +53,7 @@ public class CalendarUtil {
 	/**
 	 * @param strDate
 	 * @return Date of a given string
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public static Date stringToDate(String strDate) throws ParseException {
 		Date d = null;
@@ -65,11 +65,11 @@ public class CalendarUtil {
 	 * @param pattern
 	 *            pattern of the given strDate
 	 * @return Date of a given string
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public static Date stringToDate(String strDate, DateFormat df) throws ParseException {
 		Date d = null;
-		
+
 		try {
 			d = df.parse(strDate);
 		} catch (ParseException e) {
@@ -109,7 +109,7 @@ public class CalendarUtil {
 		}else{
 			return "";
 		}
-		
+
 	}
 	public static String dateToString(Date d,String pattern) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
@@ -119,8 +119,8 @@ public class CalendarUtil {
 		}else{
 			return "";
 		}
-		
-	} 
+
+	}
 	public static String dateToString(Date d,DateFormat dateFormat) {
 		if (d != null){
 //		String DDMMYY = "dd/MM/yyyy";
@@ -128,7 +128,7 @@ public class CalendarUtil {
 		}else{
 			return "";
 		}
-		
+
 	}
 	public static Date startOfDay(Date date) {
 		Calendar cal = Calendar.getInstance();
@@ -136,7 +136,7 @@ public class CalendarUtil {
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		
+
 		return new Date(cal.getTimeInMillis());
 	}
 
@@ -149,5 +149,10 @@ public class CalendarUtil {
 		//cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1);
 
 		return new Date(cal.getTimeInMillis());
-	} 	
+	}
+	public static Date stringToDateTime(String strDateTime) throws ParseException {
+		Date d = null;
+			d = ResourceUtil.dateTimeFormat.parse(strDateTime);
+		return d;
+	}
 }

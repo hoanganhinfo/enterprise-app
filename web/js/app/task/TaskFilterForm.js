@@ -1,5 +1,6 @@
 Ext.define('EAP.Form.TaskFilterForm',{
 	extend: 'Ext.form.Panel',
+	alias: 'widget.taskFilterForm',
 	border : true,
 	bodyBorder : true,
 	exportUrl: '',
@@ -24,14 +25,14 @@ Ext.define('EAP.Form.TaskFilterForm',{
     	this.bbar = ['->',
     	             { xtype: 'button', scope: this, text: 'View',handler: this.onView},
     	             { xtype: 'button', scope: this,text: 'Export to excel',handler: this.onExport}
-    	           ];		
+    	           ];
 		this.items = [{
 	    	 xtype:'combo',
 		    	id : 'cbDepartment1',
 		    	inputId: 'cboDepartment1',
 		    	store : this.departmentStore,
 		    	labelAlign: 'right',
-		        fieldLabel: 'Department',	      
+		        fieldLabel: 'Department',
 		    	displayField : 'orgName',
 		    	valueField : 'orgId',
 		    	editable: false,
@@ -49,7 +50,7 @@ Ext.define('EAP.Form.TaskFilterForm',{
 		    inputId: 'cboPriority1',
 		    store : this.priorityStore,
 		    labelAlign: 'right',
-		    fieldLabel: 'Priority',	      
+		    fieldLabel: 'Priority',
 		    displayField : 'name',
 		    valueField : 'value',
 		    value: 0,
@@ -66,7 +67,7 @@ Ext.define('EAP.Form.TaskFilterForm',{
 			inputId: 'cboStatus1',
 			store : this.statusStore,
 			labelAlign: 'right',
-			fieldLabel: 'Status',	      
+			fieldLabel: 'Status',
 			displayField : 'name',
 			valueField : 'value',
 			value: 1,
@@ -85,7 +86,7 @@ Ext.define('EAP.Form.TaskFilterForm',{
         	width: 200,
 	    	margin: '4 4 4 4',
         	xtype: 'datefield'
-        	
+
         },{
         	fieldLabel: 'Request date to',
         	name: 'requestDateTo',
@@ -95,7 +96,7 @@ Ext.define('EAP.Form.TaskFilterForm',{
         	width: 200,
 	    	margin: '4 4 4 4',
         	xtype: 'datefield'
-        	
+
         }],
 		this.callParent(arguments);
 	},
@@ -119,25 +120,25 @@ Ext.define('EAP.Form.TaskFilterForm',{
 			priorityId: Ext.getCmp('cbPriority1').getValue(),
 			statusId: Ext.getCmp('cbStatus1').getValue(),
 			requestDateFrom: Ext.getCmp('requestDateFrom').getRawValue(),
-			requestDateTo: Ext.getCmp('requestDateTo').getRawValue()}});		
-    	
+			requestDateTo: Ext.getCmp('requestDateTo').getRawValue()}});
+
 	},
 	onExport: function(){
 		this.getForm().doAction('standardsubmit',{
 			   url: this.exportUrl,
 			   params: {
 					myOrgs: myOrgs,
-					userId: userId,		
-					departmentId: Ext.getCmp('cbDepartment1').getValue(),  
+					userId: userId,
+					departmentId: Ext.getCmp('cbDepartment1').getValue(),
 					priorityId: Ext.getCmp('cbPriority1').getValue(),
 					statusId: Ext.getCmp('cbStatus1').getValue(),
 					requestDateFrom: Ext.getCmp('requestDateFrom').getRawValue(),
-					requestDateTo: Ext.getCmp('requestDateTo').getRawValue()  
+					requestDateTo: Ext.getCmp('requestDateTo').getRawValue()
 			   },
 			   standardSubmit: true,
 			   timeout: 100000,
 			   method: 'POST'
 			});
 	}
-	
+
 });

@@ -451,7 +451,6 @@ public class AssetWS extends MultiActionController {
 			}
 			assetList =	assetService.getByCriteria(cOwner,cDepartment, cCategoryId, cParentId,cDeleted, cLocationCode, cRequestType,cName);
 				for (Asset asset : assetList) {
-					System.out.println(asset.getName());
 					jsonAsset = new JSONObject();
 					jsonAsset.put("id", asset.getId());
 					jsonAsset.put("parentId", parentId);

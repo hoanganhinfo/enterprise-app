@@ -12,6 +12,8 @@
 
 <%
 	JSONArray objDepartment  = (JSONArray)mapParam.get("orgJsonData");
+	JSONArray objUserRoles  = (JSONArray)mapParam.get("userRoles");
+
 	JSONArray objAssetDepartment  = (JSONArray)mapParam.get("assetOrgJsonData");
 	JSONArray objUser  = (JSONArray)mapParam.get("userJsonData");
 	JSONArray objPermission  = (JSONArray)mapParam.get("permissionJsonData");
@@ -44,11 +46,12 @@ var statusJsonData = '<%=objStatus.toString()%>';
 var taskActionJsonData = '<%=objTaskAction.toString()%>';
 var taskRequestTypeJsonData = '<%=objTaskRequestType.toString()%>';
 var userName = '<%=userName%>';
+var userRolesData = '<%=objUserRoles%>';
 var myOrgs = '<%=objMyOrgs%>';
 var repositoryId = '<%=repositoryId%>';
 var taskImageFolderId = '<%=taskImageFolderId%>';
 var fileUrl = '<%=fileUrl%>';
-console.log(myOrgs);
+console.log(userJsonData);
 
 
 </script>

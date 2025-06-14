@@ -72,8 +72,28 @@ public class TaskController implements Controller, InitializingBean {
 
 		User user = themeDisplay.getUser();
 		UserGroup userGroup =  UserGroupLocalServiceUtil.getUserGroup(user.getCompanyId(), ResourceUtil.OFFICE_GROUP);
-		List<User> users = UserLocalServiceUtil.getUserGroupUsers(userGroup.getUserGroupId());
-		System.out.println("Numer of users: " + users.size());
+		List<User> usersInGroup = UserLocalServiceUtil.getUserGroupUsers(userGroup.getUserGroupId());
+		System.out.println("Numer of users: " + usersInGroup.size());
+		List<User> userList = UserLocalServiceUtil.getUsers(0, UserLocalServiceUtil.getUsersCount());
+		JSONObject jsonUser;
+		JSONArray aUser = new JSONArray();
+		for(User _user : userList){
+			if (_user.isActive()){
+				System.out.println("UserId:" + _user.getScreenName());
+				jsonUser= new JSONObject();
+				jsonUser.put("userId", _user.getUserId());
+				jsonUser.put("userEmail", _user.getEmailAddress());
+				jsonUser.put("fullName", _user.getFullName());
+				jsonUser.put("userName", _user.getScreenName());
+				StringBuilder sb = new StringBuilder();
+				for(Organization org : _user.getOrganizations()){
+					sb.append(org.getName() + ";");
+				}
+
+				jsonUser.put("department", sb.toString());
+				aUser.add(jsonUser);
+			}
+		}
 		//List<User> users = UserLocalServiceUtil.getGroupUsers(grp.getGroupId())
 		// get list of organization
 		List<Organization> organizations = OrganizationLocalServiceUtil
@@ -85,7 +105,7 @@ public class TaskController implements Controller, InitializingBean {
 		}
 		System.out.println("Numer of organizations: " + organizations.size());
 		JSONArray aDepartment = new JSONArray();
-		JSONArray aEmployee = new JSONArray();
+		JSONArray aUsersInGroup = new JSONArray();
 		JSONArray aPriority = new JSONArray();
 		JSONArray aStatus = new JSONArray();
 		JSONArray aScope = new JSONArray();
@@ -109,13 +129,13 @@ public class TaskController implements Controller, InitializingBean {
 		jsonOrg.put("userId", "-1");
 		jsonOrg.put("userName", "");
 		jsonOrg.put("userEmail", "");
-		aEmployee.add(jsonOrg);
-		for (User _user : users) {
+		aUsersInGroup.add(jsonOrg);
+		for (User _user : usersInGroup) {
 				jsonOrg = new JSONObject();
 				jsonOrg.put("userId", _user.getUserId());
 				jsonOrg.put("userName", _user.getScreenName());
 				jsonOrg.put("userEmail", _user.getEmailAddress().toLowerCase());
-				aEmployee.add(jsonOrg);
+				aUsersInGroup.add(jsonOrg);
 		}
 
 		List<PriorityType> priorityList = PriorityType.getAllPriorityList();
@@ -186,7 +206,7 @@ public class TaskController implements Controller, InitializingBean {
 		map.put("userName", user.getScreenName());
 		map.put("userEmail", user.getEmailAddress().toLowerCase());
 		map.put("orgJsonData", aDepartment);
-		map.put("employeeJsonData", aEmployee);
+		map.put("usersInGroup", aUsersInGroup);
 		map.put("myOrgs", orgs);
 		System.out.println("myOrgs: "+ orgs);
 		map.put("priorityJsonData", aPriority);
@@ -197,6 +217,7 @@ public class TaskController implements Controller, InitializingBean {
 		map.put("assetJsonData", aAsset);
 		map.put("locationDataJsonData", aLocation);
 		map.put("taskRequestTypeJsonData", aTaskRequestType);
+		map.put("usersJsonData", aUser);
 		try{
 			System.out.println("themeDisplay.getScopeGroupId(): "+ themeDisplay.getScopeGroupId());
 			System.out.println("DLFolderConstants.DEFAULT_PARENT_FOLDER_ID: "+ DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
