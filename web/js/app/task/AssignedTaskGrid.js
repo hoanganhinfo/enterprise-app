@@ -96,7 +96,7 @@ Ext.define('EAP.Grid.AssignedTaskGrid', {
 	    }
 	},
 	onSelectChange : function(selModel, selections) {
-		 Ext.getCmp('delete').setDisabled(selections.length === 0);
+		 Ext.getCmp('deleteTask').setDisabled(selections.length === 0);
 		 //Ext.getCmp('attachedImage').setDisabled(selections.length === 0);
 
 	}

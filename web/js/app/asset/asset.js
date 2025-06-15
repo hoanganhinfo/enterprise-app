@@ -51,6 +51,8 @@ var activeAssetId = null;
 var assetButtonView;
 var categoryList = null;
 var activeViewMode = 'Grid';
+var selectedTaskId = '';
+var selectedTask;
 var assetCategoryStore = new Ext.data.JsonStore({
 	autoLoad : true,
 	autoSync: true,
@@ -524,17 +526,6 @@ Ext.onReady(function() {
 		height: '300',
 		region: 'south',
 		items : [{
-            xtype: 'assetHistoryGrid',
-            store: assetHistoryDS,
-    	    id: 'assetHistoryList',
-    	    cellCls: 'x-type-grid-defect-list',
-    	    stateful: true,
-    	    height: 300,
-            title: 'Asset history',
-            columnLines: true,
-
-
-        },{
         	xtype: 'assignedTaskGrid',
             store: assignedTaskDS,
     	    id: 'assignedTaskList',
@@ -550,7 +541,76 @@ Ext.onReady(function() {
     		userStore: userStore,
     		assetCategoryStore: assetCategoryStore,
     		assetStore:assetStore,
-    		taskActionStore: taskActionStore
+    		taskActionStore: taskActionStore,
+            dockedItems: [{
+                xtype: 'toolbar',
+                itemId: 'assetToolbar',
+                items: [{
+                    iconCls: 'icon-delete',
+                    text: 'Delete',
+                    id: 'deleteTask',
+                    disabled: true,
+                    itemId: 'deleteTask',
+                    scale : 'medium',
+                    scope: this,
+                    handler : function(){
+    					if (selectedTask.get('requesterId') != userId){
+    						alert('Only requester can delete task');
+    						return;
+    					}else{
+    						if (selectedTask.get('statusId') != 1){
+    							alert('Only open task can be deleted task');
+    							return;
+    						}
+
+    						Ext.Msg.show({
+    							title : 'Task deletion',
+    							msg : 'Are you sure to delete this task',
+    							icon : Ext.Msg.QUESTION,
+    							buttons : Ext.Msg.YESNO,
+    							fn : function(buttonId) {
+    								if (buttonId != 'yes')
+    									return;
+    								new Ext.data.Connection().request({
+    									method : 'POST',
+    									url : DELETE_TASK_URL,
+    									params : {
+    										taskId: selectedTaskId
+    									},
+    									scriptTag : true,
+    									success : function(response) {
+    										assignedTaskDS.load({params:{assetId:  activeAssetId}});
+    									},
+    									failure : function(response) {
+    										Ext.Msg.show({
+    											title : 'INFORMATION',
+    											msg : 'Delete fail !!',
+    											minWidth : 200,
+    											modal : true,
+    											icon : Ext.Msg.INFO,
+    											buttons : Ext.Msg.OK
+    										});
+    									}
+    								});
+
+    							},
+    							icon : Ext.MessageBox.QUESTION
+    						});
+
+    					}
+    				}
+                }]
+            }]
+        },{
+            xtype: 'assetHistoryGrid',
+            store: assetHistoryDS,
+    	    id: 'assetHistoryList',
+    	    cellCls: 'x-type-grid-defect-list',
+    	    stateful: true,
+    	    height: 300,
+            title: 'Asset history',
+            columnLines: true
+
         }]
 
 	});

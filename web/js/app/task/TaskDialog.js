@@ -20,6 +20,7 @@ Ext.define('EAP.Window.Task',{
     userStore: null,
     scopeStore: null,
     locationStore: null,
+    asset: null,
     taskRequestTypeStore: null,
     priorityStore: null,
     assetCategoryStore: null,
@@ -102,6 +103,7 @@ Ext.define('EAP.Window.Task',{
 	    	valueField : 'locationCode',
 	    	store: this.locationStore,
 	    	colspan: 1,
+	    	hidden: this.locationStore == null? true: false,
 	    	editable: true,
 	    	allowBlank: true,
 	    	msgTarget: 'side',
@@ -131,6 +133,7 @@ Ext.define('EAP.Window.Task',{
 	    	valueField : 'id',
 	    	height: 30,
 	    	store: this.assetCategoryStore,
+	    	hidden: this.assetCategoryStore == null? true: false,
 	    	colspan: 1,
 	    	editable: true,
 	    	allowBlank: true,
@@ -164,7 +167,7 @@ Ext.define('EAP.Window.Task',{
 	    	valueField : 'id',
 	    	store: this.assetStore,
 	    	colspan: 1,
-	    	// value: 1,
+	    	//value:  this.taskId == null && this.assetCategoryStore == null? true: false,
 	    	editable: true,
 	    	allowBlank: true,
 	    	msgTarget: 'side',
@@ -241,7 +244,7 @@ Ext.define('EAP.Window.Task',{
 			height: 30,
 			displayField : 'name',
 			valueField : 'value',
-			value:  this.task==null?5:this.task.get('statusId'),
+			value:  this.task==null?1:this.task.get('statusId'),
 			scope: this,
 			allowBlank: false,
 			msgTarget: 'side',
@@ -276,7 +279,7 @@ Ext.define('EAP.Window.Task',{
           //   maxValue: '31/12/2016 05:30 PM',
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
-        	value: this.task==null?new Date():Ext.Date.parse(this.task.get('targetdate'), "d/m/Y h:i A"),
+        	value: this.task==null?null:Ext.Date.parse(this.task.get('targetdate'), "d/m/Y h:i A"),
         	xtype: 'datetimefield'
 
         },{
@@ -290,7 +293,7 @@ Ext.define('EAP.Window.Task',{
         	minValue: this.task==null?new Date():this.task.get('requestdate'),
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
-	    	value: this.task==null?new Date():Ext.Date.parse(this.task.get('confirmedDate'), "d/m/Y h:i A"),
+	    	value: this.task==null?null:Ext.Date.parse(this.task.get('confirmedDate'), "d/m/Y h:i A"),
         	xtype: 'datetimefield'
 
         },{
@@ -303,7 +306,7 @@ Ext.define('EAP.Window.Task',{
         	 minValue: this.task==null?new Date():this.task.get('requestdate'),
         	columnWidth:0.5,
 	    	margin: '2 2 2 2',
-	    	value: this.task==null?new Date():Ext.Date.parse(this.task.get('plandate'), "d/m/Y h:i A"),
+	    	value: this.task==null?null:Ext.Date.parse(this.task.get('plandate'), "d/m/Y h:i A"),
         	xtype: 'datetimefield'
 
         },{
@@ -331,7 +334,7 @@ Ext.define('EAP.Window.Task',{
 			displayField : 'name',
 			valueField : 'value',
 			scope: this,
-			value:  this.task==null?5:this.task.get('taskActionId'),
+			//value:  this.task==null?0:this.task.get('taskActionId'),
 			//allowBlank: false,
 			msgTarget: 'side',
 	    	triggerAction : 'all',
@@ -390,7 +393,7 @@ Ext.define('EAP.Window.Task',{
 				Ext.getCmp("taskname").setReadOnly(false);
 				Ext.getCmp("cbAssignee").setReadOnly(false);
 				Ext.getCmp("desc").setReadOnly(false);
-				Ext.getCmp("cbDepartment").setReadOnly(false);
+
 				//Ext.getCmp("cbScope").setReadOnly(false);
 				Ext.getCmp("cbPriority").setReadOnly(false);
 				Ext.getCmp("cbStatus").setReadOnly(true);
@@ -399,8 +402,23 @@ Ext.define('EAP.Window.Task',{
 				Ext.getCmp("planDate").setReadOnly(false);
 				Ext.getCmp("actualDate").setReadOnly(true);
 				Ext.getCmp("email").setReadOnly(false);
-				Ext.getCmp("cbAssetCategory").setReadOnly(false);
-				Ext.getCmp("cbAsset").setReadOnly(false);
+
+
+				if (this.asset == null){
+					Ext.getCmp("cbAsset").setReadOnly(false);
+					Ext.getCmp("cbAssetCategory").setReadOnly(false);
+					Ext.getCmp("cbDepartment").setReadOnly(false);
+				}else{
+					console.log(this.asset);
+					Ext.getCmp("cbAsset").setReadOnly(true);
+					Ext.getCmp("cbDepartment").setReadOnly(true);
+					Ext.getCmp("cbAsset").setRawValue(this.asset.assetCode);
+					var dept = this.departmentStore.findRecord('orgName', this.asset.owner);
+					console.log(this.asset.owner);
+					console.log(dept);
+					Ext.getCmp("cbDepartment").setValue(dept.data.orgId);
+				}
+
 
 		}else{
 
@@ -410,6 +428,21 @@ Ext.define('EAP.Window.Task',{
 			//Ext.getCmp("cbScope").setValue(this.task.get('scopeId'));
 			Ext.getCmp("cbAssignee").setValue(this.task.get('assigneeId'));
 			Ext.getCmp("cbAsset").setValue(this.task.get('assetCode'));
+			Ext.getCmp("cbTaskAction").setValue(this.task.get('taskActionId'));
+			/*
+			if (this.task.get('targetdate') != null){
+				Ext.getCmp("targetdate").setValue(Ext.Date.parse(this.task.get('targetdate'), "d/m/Y h:i A"));
+			}
+			if (this.task.get('confirmedDate') != null){
+				Ext.getCmp("confirmedDate").setValue(Ext.Date.parse(this.task.get('confirmedDate'), "d/m/Y h:i A"));
+			}
+			if (this.task.get('actualdate') != null){
+				Ext.getCmp("actualDate").setValue(Ext.Date.parse(this.task.get('actualdate'), "d/m/Y h:i A"));
+			}
+			if (this.task.get('plandate') != null){
+			Ext.getCmp("planDate").setValue(Ext.Date.parse(this.task.get('plandate'), "d/m/Y h:i A"));
+			}
+			*/
 			//Ext.getCmp("cbAssetCategory").setValue(this.task.get('assetCategoryId'));
 			Ext.getCmp("cbAsset").getStore().load({
 					  params: {categoryId: Ext.getCmp("cbAssetCategory").getValue()},
@@ -501,6 +534,7 @@ Ext.define('EAP.Window.Task',{
 			alert('Please select department');
 			return;
 		}
+		console.log(this.asset);
 		Ext.getBody().mask('Processing data...');
 		new Ext.data.Connection().request({
 			method : 'POST',
@@ -523,7 +557,7 @@ Ext.define('EAP.Window.Task',{
 				planDate:  Ext.getCmp("planDate").getRawValue(),
 				actualDate: Ext.getCmp("actualDate").getRawValue(),
 				email:  Ext.getCmp("email").getValue(),
-				assetId : Ext.getCmp("cbAsset").getValue(),
+				assetId : this.asset == null?Ext.getCmp("cbAsset").getValue():this.asset.id,
 				assetCategoryId : Ext.getCmp("cbAssetCategory").getValue(),
 				taskActionId: Ext.getCmp("cbTaskAction").getValue(),
 				requestTypeId :  Ext.getCmp("cbRequestType").getValue(),

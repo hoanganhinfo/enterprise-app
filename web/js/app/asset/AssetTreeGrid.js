@@ -202,6 +202,7 @@ Ext.define('EAP.Grid.AssetTreeGrid', {
         if (selections.length > 0){
         	if (selections[0].get('id') != null &&	activeAssetId != selections[0].get('id')){
         		//this.changedAssetId = selections[0].get('id');
+        		activeAsset = selections[0].data;
         		activeAssetId = selections[0].get('id');
 	        	this.historyStore.load({params:{assetId:  activeAssetId}});
 	        	assignedTaskDS.load({params:{assetId:  activeAssetId}});

@@ -124,7 +124,7 @@ Ext.define('EAP.view.AssetView',{
                 scope: this,
             },{
             	xtype: 'combobox',
-                id: 'cboRequestType',
+                id: 'cboRequestTypeFilter',
                 fieldLabel: 'Request type',
                 store: taskRequestTypeStore,
                 queryMode: 'local',
@@ -222,10 +222,10 @@ Ext.define('EAP.view.AssetView',{
 	},
 	onSearch: function(){
 		var ownerName = Ext.getCmp('cboOwner').getRawValue();
-		var departmentName = Ext.getCmp('cboDepartment').getRawValue();
+		var departmentName = Ext.getCmp('cboDepartmentFilter').getRawValue();
 		var categoryId = Ext.getCmp('cboCategory').getValue();
 		var locationCode = Ext.getCmp('cboLocation').getValue();
-		var requestType = Ext.getCmp('cboRequestType').getValue();
+		var requestType = Ext.getCmp('cboRequestTypeFilter').getValue();
 		var name = Ext.getCmp('assetSearch').getValue();
 		console.log(ownerName);
 		console.log(departmentName);
@@ -277,8 +277,8 @@ Ext.define('EAP.view.AssetView',{
 
     	// Simple ComboBox using the data store
     	this.departmentList = Ext.create('Ext.form.field.ComboBox', {
-    		id : 'cboDepartment',
-    		inputId: 'cbDepartment',
+    		id : 'cboDepartmentFilter',
+    		inputId: 'cbDepartmentFilter',
     		fieldLabel: 'Department',
     	    displayField: 'orgName',
     	    labelAlign: 'right',
@@ -505,5 +505,33 @@ Ext.define('EAP.view.AssetView',{
     	         }
    	     });
     	assetPermissionWin.show();
+    },
+    onCreateTask: function(){
+    	if (activeAsset == null){
+    		alert('Please select an asset to create task.');
+    		returnl;
+    	}
+		var dlg = Ext.create('EAP.Window.Task', {
+			 title: 'Add new task',
+			 requesterId: userId,
+			 requester: userName,
+			 departmentStore: departmentStore,
+			 userStore: userStore,
+			 scopeStore: scopeStore,
+			 priorityStore : priorityStore,
+			 statusStore : statusStore,
+			 taskActionStore: taskActionStore,
+			 assetCategoryStore: null,
+			 assetStore: assetStore,
+			 asset: activeAsset,
+			 locationStore: null,
+			 taskRequestTypeStore: taskRequestTypeStore,
+			 saveUrl: SAVE_TASK_URL,
+			 reloadFn: function (){
+				 assignedTaskDS.load({params:{assetId:  activeAssetId}});
+
+			 }
+			});
+		dlg.show();
     }
 });

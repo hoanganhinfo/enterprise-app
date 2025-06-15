@@ -67,6 +67,7 @@ Ext.Loader.setConfig({
 							cls: clsFormat,
 						    width : 100,
 						    height: 100,
+						    asset: asset,
 						    listeners: {
 				    			click: function( obj, e, eOpts){
 				    				console.log(that.items.items);
@@ -74,6 +75,7 @@ Ext.Loader.setConfig({
 				    					console.log(btn);
 				    					btn.removeCls('x-btn-select');
 				    				});
+				    				activeAsset = asset;
 				    				activeAssetId = obj.id;
 				            		assetHistoryDS.load({params:{assetId:  obj.id}});
 				            		obj.addCls('x-btn-select');

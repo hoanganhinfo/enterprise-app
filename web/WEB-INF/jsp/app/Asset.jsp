@@ -79,6 +79,7 @@ console.log(userJsonData);
 	<script type="text/javascript" src="/enterprise-app/js/app/asset/AssetCategoryGrid.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/app/asset/AssetLocationGrid.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/app/asset/AssetHistoryGrid.js"></script>
+	<script type="text/javascript" src="/enterprise-app/js/app/task/TaskDialog.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/app/task/AssignedTaskGrid.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/app/asset/AssetButtonView.js"></script>
 	<script type="text/javascript" src="/enterprise-app/js/app/asset/AssetTreeGrid.js"></script>

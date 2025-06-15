@@ -380,8 +380,8 @@ Ext.onReady(function() {
 				 scale : 'medium',
 				text : 'Delete',
 				disabled : true,
-				itemId : 'delete',
-				id: 'delete',
+				itemId : 'deleteTask',
+				id: 'deleteTask',
 				scope : this,
 				handler : function(){
 					if (selectedTask.get('requesterId') != userId){
